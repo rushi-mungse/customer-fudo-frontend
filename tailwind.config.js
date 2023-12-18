@@ -5,7 +5,7 @@ export default {
         extend: {
             colors: {
                 pure: {
-                    DEFAULT: "#f2f2f2",
+                    DEFAULT: "#ffffff",
                     100: "#dadada",
                     200: "#c2c2c2",
                     300: "#a9a9a9",
@@ -16,7 +16,7 @@ export default {
                     800: "#303030",
                     900: "#181818",
                 },
-                primary: {
+                active: {
                     DEFAULT: "#f14646",
                     100: "#feeded",
                     200: "#fbc8c8",

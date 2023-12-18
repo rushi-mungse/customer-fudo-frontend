@@ -2,15 +2,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { IconType } from "react-icons";
 
 const ButtonVariants = cva(
-    "tracking-wider transition-all w-fit font-light cursor-pointer shadow-lg shadow-dark/20",
+    "tracking-wider transition-all w-fit font-light cursor-pointer",
     {
         variants: {
             intent: {
-                primary:
-                    "bg-pure text-dark hover:bg-dark/10 ring-1 ring-dark/80",
+                primary: "bg-pure text-dark hover:bg-pure-200 ring-1 ring-dark",
                 secondary:
-                    "bg-dark text-pure ring-1 ring-dark hover:bg-gray-600",
-                tertiary: "bg-active text-pure hover:bg-active/90",
+                    "bg-dark text-pure ring-1 ring-dark hover:bg-pure-600",
+                tertiary: "bg-active text-pure hover:bg-active-600",
             },
             size: {
                 xs: "px-5 py-1.5 text-xs",
