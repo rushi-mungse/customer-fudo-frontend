@@ -1,4 +1,10 @@
-import { ISendOtpData, IVerifyOtpData } from "../../types";
+import {
+    IForgotPasswordData,
+    ILoginData,
+    IResetPasswordData,
+    ISendOtpData,
+    IVerifyOtpData,
+} from "../../types";
 import api from "./client";
 
 export const sendOtp = (data: ISendOtpData) =>
@@ -7,4 +13,14 @@ export const sendOtp = (data: ISendOtpData) =>
 export const verifyOtp = (data: IVerifyOtpData) =>
     api.post("/auth/register/verify-otp", data);
 
+export const login = (data: ILoginData) => api.post("/auth/login", data);
+
 export const getTenants = () => api.get("/tenant");
+
+export const logout = () => api.get("/auth/logout");
+
+export const forgetPassword = (data: IForgotPasswordData) =>
+    api.post("/auth/forget-password", data);
+
+export const setPassword = (data: IResetPasswordData) =>
+    api.post("/auth/set-password", data);
