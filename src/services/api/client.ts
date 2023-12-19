@@ -9,4 +9,32 @@ const api = axios.create({
     },
 });
 
+api.interceptors.response.use(
+    (config) => {
+        return config;
+    },
+    async (error) => {
+        const originalRequest = error.config;
+        if (
+            error.response.status === 401 &&
+            originalRequest &&
+            !originalRequest._isRetry
+        ) {
+            originalRequest._isRetry = true;
+            try {
+                await axios.get(
+                    `${import.meta.env.API_BASE_URL}/auth/refresh`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                return api.request(originalRequest);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        throw error;
+    }
+);
+
 export default api;
