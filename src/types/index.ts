@@ -31,3 +31,20 @@ export interface IUserData {
     tenant: ITenantData | null;
     role: string;
 }
+
+export interface ILoginData {
+    email: string;
+    password: string;
+}
+
+export interface IForgotPasswordData {
+    email: string;
+}
+
+export interface IResetPasswordData {
+    email: string;
+    hashOtp: string;
+    otp: string;
+    password: string;
+    confirmPassword: string;
+}
