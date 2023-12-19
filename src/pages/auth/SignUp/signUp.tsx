@@ -51,7 +51,7 @@ const SignUp = () => {
                                 <div className="w-[350px]">
                                     <div className="mb-8">
                                         <span className="text-3xl font-bold text-active">
-                                            Sign Up
+                                            Sign Up Your Account
                                         </span>
                                         <p className="text-dark/80 text-[14px] italic -tracking-tighter pt-4">
                                             To keep connected with us please
@@ -173,7 +173,7 @@ const SignUp = () => {
                                     </Form>
 
                                     <Link
-                                        to="/authentication/login"
+                                        to="/auth/login"
                                         className="text-blue-400 hover:text-blue-500 italic mt-12 inline-block text-center w-full text-sm"
                                     >
                                         Do you have an account?
