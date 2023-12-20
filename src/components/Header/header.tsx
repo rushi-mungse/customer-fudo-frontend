@@ -62,12 +62,18 @@ const Header = () => {
                                 </Link>
                             </>
                         ) : (
-                            <Link
+                            <NavLink
                                 to="/user"
-                                className="font-bold rounded-[50%] ring-1 ring-black text-black p-1 hover:text-active hover:ring-active transition-all"
+                                className={({ isActive }) =>
+                                    `${
+                                        isActive
+                                            ? "text-active ring-active"
+                                            : "ring-pure-800 text-pure-800"
+                                    } group flex-center ring-1 p-1.5 rounded-[50%] transition-all hover:text-active hover:ring-active`
+                                }
                             >
-                                <FaRegUser className="text-sm" />
-                            </Link>
+                                <FaRegUser className="text-[14px]" />
+                            </NavLink>
                         )}
                     </div>
                 </nav>

@@ -1,35 +1,21 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { setAuth } from "../state/slices/auth";
 import { useAppDispatch } from "./reduxHooks";
+import { refresh } from "../services/api/client";
 
 const useRefreshHook = () => {
-    const [loading, setLoading] = useState(true);
-    const [unMounted, setUnMounted] = useState(false);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const { data } = await axios.get(
-                    `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
-                    {
-                        withCredentials: true,
-                    }
-                );
-                if (!unMounted) {
-                    setLoading(false);
-                    dispatch(setAuth(data.user));
-                    setUnMounted(true);
-                }
-            } catch (error) {
-                setLoading(false);
-                console.log(error);
-            }
-        })();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    return { loading };
+    const { isLoading, isError } = useQuery({
+        queryKey: ["userData"],
+        queryFn: refresh,
+        onSuccess: async ({ data }) => {
+            dispatch(setAuth(data.user));
+        },
+        retry: false,
+    });
+
+    return { isError, isLoading };
 };
 
 export default useRefreshHook;

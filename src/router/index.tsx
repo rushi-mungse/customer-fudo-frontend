@@ -35,7 +35,7 @@ const ProtectedRoute = () => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />}>
-            <Route path="" element={<HomePage />} />
+            <Route index path="" element={<HomePage />} />
             <Route path="auth" element={<GuestRoute />}>
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<SignUp />} />

@@ -12,11 +12,20 @@ import { useQuery } from "react-query";
 import { logout } from "../../services/api/api";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { clearAuth } from "../../state/slices/auth";
+import { User, Orders, UserHistory } from "../../components";
+import { JsxElement } from "typescript";
+
+const CONTENT: Record<number, JSX.Element> = {
+    1: <User />,
+    2: <Orders />,
+    3: <UserHistory />,
+};
 
 const { Header, Sider, Content } = Layout;
 
 const App: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [content, setContent] = useState<JSX.Element>(CONTENT[1]);
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
@@ -31,8 +40,16 @@ const App: React.FC = () => {
         enabled: false,
     });
 
-    const handleOnSelect = async (value) => {
-        if (value.key === "4") refetch();
+    interface IValues {
+        key: string;
+    }
+
+    const handleOnSelect = async (value: IValues) => {
+        if (value.key === "4") {
+            refetch();
+            return;
+        }
+        setContent(CONTENT[+value.key]);
     };
 
     return (
@@ -42,9 +59,8 @@ const App: React.FC = () => {
                 collapsible
                 collapsed={collapsed}
                 theme="light"
-                className="border-r-[.5px] border-pure-600/30"
             >
-                <div className="flex items-center justify-between flex-col h-full">
+                <div className="flex items-center justify-between flex-col h-full w-full">
                     <Menu
                         mode="inline"
                         defaultSelectedKeys={["1"]}
@@ -82,7 +98,7 @@ const App: React.FC = () => {
                     />
                 </div>
             </Sider>
-            <Layout>
+            <Layout className="border-l-[.5px] border-pure-600/30">
                 <Header
                     style={{
                         padding: "5px 0",
@@ -119,7 +135,7 @@ const App: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    Content
+                    {content}
                 </Content>
             </Layout>
         </Layout>

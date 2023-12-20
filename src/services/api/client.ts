@@ -26,6 +26,10 @@ api.interceptors.response.use(
                     `${import.meta.env.API_BASE_URL}/auth/refresh`,
                     {
                         withCredentials: true,
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                        },
                     }
                 );
                 return api.request(originalRequest);
@@ -36,5 +40,19 @@ api.interceptors.response.use(
         throw error;
     }
 );
+
+export const refresh = async () => {
+    const data = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
+        {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        }
+    );
+    return data;
+};
 
 export default api;
