@@ -65,6 +65,7 @@ const Login = () => {
                                     )}
                                     <Form
                                         className="flex items-center flex-col"
+                                        initialValues={{ remember: true }}
                                         onFinish={(values: ILoginData) => {
                                             mutate({
                                                 email: values.email,
