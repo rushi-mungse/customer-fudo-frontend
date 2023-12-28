@@ -23,7 +23,7 @@ api.interceptors.response.use(
             originalRequest._isRetry = true;
             try {
                 await axios.get(
-                    `${import.meta.env.API_BASE_URL}/auth/refresh`,
+                    `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
                     {
                         withCredentials: true,
                         headers: {
