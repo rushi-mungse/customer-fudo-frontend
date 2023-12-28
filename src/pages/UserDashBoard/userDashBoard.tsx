@@ -13,7 +13,6 @@ import { logout } from "../../services/api/api";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { clearAuth } from "../../state/slices/auth";
 import { User, Orders, UserHistory } from "../../components";
-import { JsxElement } from "typescript";
 
 const CONTENT: Record<number, JSX.Element> = {
     1: <User />,
@@ -32,7 +31,6 @@ const App: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const { refetch } = useQuery({
-        queryKey: ["tenantData"],
         queryFn: async () => await logout(),
         onSuccess: async () => {
             dispatch(clearAuth());
@@ -46,8 +44,7 @@ const App: React.FC = () => {
 
     const handleOnSelect = async (value: IValues) => {
         if (value.key === "4") {
-            refetch();
-            return;
+            return await refetch();
         }
         setContent(CONTENT[+value.key]);
     };
@@ -86,7 +83,7 @@ const App: React.FC = () => {
                     />
                     <Menu
                         mode="inline"
-                        style={{ border: "none" }}
+                        style={{ border: "none", padding: 0, margin: 0 }}
                         items={[
                             {
                                 key: "4",
@@ -98,13 +95,13 @@ const App: React.FC = () => {
                     />
                 </div>
             </Sider>
-            <Layout className="border-l-[.5px] border-pure-600/30">
+            <Layout className="bg-gray-100/10">
                 <Header
                     style={{
                         padding: "5px 0",
-                        background: colorBgContainer,
                         height: 40,
                     }}
+                    className="bg-gray-100/10"
                 >
                     <Button
                         type="text"
@@ -131,8 +128,6 @@ const App: React.FC = () => {
                     style={{
                         padding: 24,
                         minHeight: 280,
-                        background: colorBgContainer,
-                        borderRadius: borderRadiusLG,
                     }}
                 >
                     {content}
