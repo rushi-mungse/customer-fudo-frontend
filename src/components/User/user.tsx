@@ -7,15 +7,22 @@ import {
     PhoneOutlined,
 } from "@ant-design/icons";
 import { LuClipboardType } from "react-icons/lu";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { RootState } from "../../state/store";
 import { Button as ButtonUi } from "../../ui";
+import ChangeEmailAndPhoneNumber from "../ChangeEmailAndPhoneNumber/changeEmailAndPhoneNumber";
 
 interface FieldType {
     fullName?: string;
     email?: string;
     phoneNumber?: string | null;
     role?: string;
+}
+
+interface ChangePasswordType {
+    oldPassword?: string;
+    newPassword?: string;
 }
 
 const normFile = (e: any) => {
@@ -30,8 +37,9 @@ const User = () => {
 
     return (
         <div className="h-full">
-            <div className="grid grid-cols-3 gap-4">
-                <section className=" col-span-2">
+            <div className="grid grid-cols-5 gap-4">
+                <section className="col-span-3">
+                    {/* edit profile picture */}
                     <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md p-4 bg-pure">
                         <h1 className="text-active">Edit Profile Piture</h1>
                         <div className="flex mt-4 items-center justify-between">
@@ -60,7 +68,7 @@ const User = () => {
                                 >
                                     <Upload
                                         name="photo"
-                                        action="/upload.do"
+                                        maxCount={1}
                                         listType="picture"
                                     >
                                         <Button icon={<UploadOutlined />}>
@@ -71,7 +79,9 @@ const User = () => {
                             </Form>
                         </div>
                     </div>
+                    {/* update user profile  */}
                     <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md p-4 bg-pure mt-10">
+                        <h1 className="text-active mb-4">Update Profile</h1>
                         <Form
                             onFinish={() => {}}
                             autoComplete="off"
@@ -172,9 +182,67 @@ const User = () => {
                             </div>
                         </Form>
                     </div>
+                    {/* change password  */}
+                    <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md p-4 bg-pure mt-10">
+                        <h1 className="text-active mb-4">Change Password</h1>
+                        <Form onFinish={() => {}} autoComplete="off">
+                            <div className="grid grid-cols-2 gap-2">
+                                <Form.Item<ChangePasswordType>
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                "Please enter your old password",
+                                        },
+                                    ]}
+                                    style={{ width: "100%" }}
+                                    name="oldPassword"
+                                >
+                                    <Input.Password
+                                        placeholder="Enter your old password"
+                                        prefix={
+                                            <RiLockPasswordLine className="text-pure-800 pr-2 text-xl" />
+                                        }
+                                        className="font-light text-pure-800"
+                                    />
+                                </Form.Item>
+                                <Form.Item<ChangePasswordType>
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                "Please enter your new password",
+                                        },
+                                    ]}
+                                    style={{ width: "100%" }}
+                                    name="newPassword"
+                                >
+                                    <Input.Password
+                                        placeholder="Enter your new password"
+                                        prefix={
+                                            <RiLockPasswordLine className="text-pure-800 pr-2 text-xl" />
+                                        }
+                                        className="font-light text-pure-800"
+                                    />
+                                </Form.Item>
+                            </div>
+                            <div className="w-full flex justify-end">
+                                <ButtonUi
+                                    type="submit"
+                                    intent={"tertiary"}
+                                    size={"sm"}
+                                    rounded={"full"}
+                                >
+                                    Change Password
+                                </ButtonUi>
+                            </div>
+                        </Form>
+                    </div>
                 </section>
 
-                <section>second</section>
+                <section className="col-span-2">
+                    <ChangeEmailAndPhoneNumber />
+                </section>
             </div>
         </div>
     );
