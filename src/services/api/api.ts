@@ -24,3 +24,5 @@ export const forgetPassword = (data: IForgotPasswordData) =>
 
 export const setPassword = (data: IResetPasswordData) =>
     api.post("/auth/set-password", data);
+
+export const self = () => api.get("/auth/self");
