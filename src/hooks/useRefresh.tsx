@@ -1,14 +1,14 @@
 import { useQuery } from "react-query";
 import { setAuth } from "../state/slices/auth";
 import { useAppDispatch } from "./reduxHooks";
-import { refresh } from "../services/api/client";
+import { self } from "../services/api/api";
 
 const useRefreshHook = () => {
     const dispatch = useAppDispatch();
 
     const { isLoading, isError } = useQuery({
-        queryKey: ["userData"],
-        queryFn: refresh,
+        queryKey: ["selfData"],
+        queryFn: self,
         onSuccess: async ({ data }) => {
             dispatch(setAuth(data.user));
         },
