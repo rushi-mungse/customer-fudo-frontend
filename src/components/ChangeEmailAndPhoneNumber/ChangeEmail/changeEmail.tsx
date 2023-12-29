@@ -5,7 +5,7 @@ import { useAppSelector } from "../../../hooks/reduxHooks";
 import { RootState } from "../../../state/store";
 
 interface FieldType {
-    email?: string;
+    newEmail?: string;
     otp?: string;
 }
 
@@ -20,7 +20,7 @@ const ChangeEmail = () => {
                 {
                     title: (
                         <span className="text-active">
-                            Send verification code
+                            Send verification code to registered email address
                         </span>
                     ),
                     description: (
@@ -32,9 +32,10 @@ const ChangeEmail = () => {
                 },
                 {
                     title: (
-                        <div>
-                            <span className="text-active">
-                                Enter verification code sent to{" "}
+                        <div className="w-full">
+                            <span className="text-active inline-block">
+                                Enter verification code sent to registered email
+                                address
                             </span>
                             <span className="text-dark font-pure-600/50">
                                 {user?.email}
@@ -90,7 +91,7 @@ const ChangeEmail = () => {
                                     },
                                 ]}
                                 style={{ width: "100%" }}
-                                name="email"
+                                name="newEmail"
                             >
                                 <Input
                                     placeholder="Enter your new email address"
@@ -109,8 +110,9 @@ const ChangeEmail = () => {
                 {
                     title: (
                         <div>
-                            <span className="text-active">
-                                Enter verification code sent to{" "}
+                            <span className="text-active inline-block">
+                                Enter verification code sent to new email
+                                address{" "}
                             </span>
                             <span className="text-dark font-pure-600/50">
                                 {user?.email}
