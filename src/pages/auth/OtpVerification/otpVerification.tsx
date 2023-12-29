@@ -36,7 +36,7 @@ const OtpVerification = () => {
         mutationKey: ["verifyOtp"],
         mutationFn: async (data: IVerifyOtpData) => verifyOtp(data),
         onSuccess: async ({ data }) => {
-            dispatch(setAuth(data.user));
+            dispatch(setAuth(data));
             navigate("/");
         },
     });
