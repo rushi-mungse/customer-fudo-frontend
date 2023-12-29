@@ -20,7 +20,7 @@ const ChangePhoneNumber = () => {
                 {
                     title: (
                         <span className="text-active">
-                            Send verification code
+                            Send verification code to old phone number
                         </span>
                     ),
                     description: (
@@ -33,8 +33,8 @@ const ChangePhoneNumber = () => {
                 {
                     title: (
                         <div>
-                            <span className="text-active">
-                                Enter verification code sent to{" "}
+                            <span className="text-active inline-block">
+                                Enter verification code sent to old phone number
                             </span>
                             <span className="text-dark font-pure-600/50">
                                 {user?.email}
@@ -106,8 +106,8 @@ const ChangePhoneNumber = () => {
                 {
                     title: (
                         <div>
-                            <span className="text-active">
-                                Enter verification code sent to{" "}
+                            <span className="text-active inline-block">
+                                Enter verification code sent to new phone number
                             </span>
                             <span className="text-dark font-pure-600/50">
                                 {user?.email}
