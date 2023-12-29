@@ -8,6 +8,10 @@ import Loader from "./Loader/loader";
 import User from "./User/user";
 import UserHistory from "./UserHistory/userHistory";
 import Orders from "./Orders/orders";
+import ChangeEmailAndPhoneNumber from "./ChangeEmailAndPhoneNumber/changeEmailAndPhoneNumber";
+import UploadProfilePicture from "./UploadProfilePicture/uploadProfilePicture";
+import UpdateFullName from "./UpdateFullName/updateFullName";
+import ChangePassword from "./ChangePassword/changePassword";
 
 export {
     Header,
@@ -20,4 +24,8 @@ export {
     User,
     UserHistory,
     Orders,
+    ChangeEmailAndPhoneNumber,
+    UploadProfilePicture,
+    UpdateFullName,
+    ChangePassword,
 };
