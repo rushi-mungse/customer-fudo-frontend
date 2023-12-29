@@ -55,4 +55,16 @@ export const refresh = async () => {
     return data;
 };
 
+export const uploadFile = async (data: FormData) => {
+    return await axios({
+        method: "POST",
+        url: `${import.meta.env.VITE_API_BASE_URL}/user/upload-profile-picture`,
+        data,
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
 export default api;
