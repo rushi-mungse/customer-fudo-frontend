@@ -24,7 +24,7 @@ const Login = () => {
         mutationKey: ["sendOtp"],
         mutationFn: async (data: ILoginData) => login(data),
         onSuccess: async ({ data }) => {
-            dispatch(setAuth(data.user));
+            dispatch(setAuth(data));
             navigate("/");
         },
     });
