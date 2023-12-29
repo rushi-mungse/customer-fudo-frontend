@@ -30,6 +30,8 @@ export interface IUserData {
     id: number;
     tenant: ITenantData | null;
     role: string;
+    avatar: string | null;
+    phoneNumber: string | null;
 }
 
 export interface ILoginData {
@@ -47,4 +49,8 @@ export interface IResetPasswordData {
     otp: string;
     password: string;
     confirmPassword: string;
+}
+
+export interface IUpdateFullNameData {
+    fullName: string;
 }
