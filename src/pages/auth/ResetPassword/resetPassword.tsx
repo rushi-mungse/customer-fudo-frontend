@@ -42,7 +42,7 @@ const ResetPassword = () => {
         mutationKey: ["resetPassword"],
         mutationFn: async (data: IResetPasswordData) => setPassword(data),
         onSuccess: async ({ data }) => {
-            dispatch(setAuth(data.user));
+            dispatch(setAuth(data));
             navigate("/");
         },
     });
