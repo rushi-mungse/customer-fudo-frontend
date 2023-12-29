@@ -10,7 +10,7 @@ const useRefreshHook = () => {
         queryKey: ["selfData"],
         queryFn: self,
         onSuccess: async ({ data }) => {
-            dispatch(setAuth(data.user));
+            dispatch(setAuth(data));
         },
         retry: false,
     });
