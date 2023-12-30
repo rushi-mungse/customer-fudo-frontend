@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../ui";
 import { BorderAndOr } from "../../../components";
 import { sendOtp } from "../../../services/api/api";
-import { ISendOtpData } from "../../../types";
+import { IError, ISendOtpData } from "../../../types";
 import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { setOtpInfo } from "../../../state/slices/otpInfo";
 
@@ -63,7 +63,7 @@ const SignUp = () => {
                                     {isError && (
                                         <Alert
                                             style={{ marginBottom: 24 }}
-                                            message={error?.message}
+                                            message={(error as IError)?.message}
                                             type="error"
                                             closable
                                         />
