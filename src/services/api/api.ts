@@ -5,6 +5,7 @@ import {
     ISendOtpData,
     IVerifyOtpData,
     IUpdateFullNameData,
+    IChangePasswordData,
 } from "../../types";
 import api from "./client";
 
@@ -28,5 +29,8 @@ export const setPassword = (data: IResetPasswordData) =>
 
 export const updateFullName = (data: IUpdateFullNameData) =>
     api.post("/user/update-full-name", data);
+
+export const changePassword = (data: IChangePasswordData) =>
+    api.post("/user/change-password", data);
 
 export const self = () => api.get("/auth/self");
