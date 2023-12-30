@@ -54,3 +54,15 @@ export interface IResetPasswordData {
 export interface IUpdateFullNameData {
     fullName: string;
 }
+
+export interface IChangePasswordData {
+    oldPassword: string;
+    newPassword: string;
+}
+
+export interface IError extends Error {
+    message: string;
+    data: {
+        error: [];
+    };
+}
