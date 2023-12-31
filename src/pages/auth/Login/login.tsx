@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../ui";
 import { BorderAndOr, Loader } from "../../../components";
 import { login } from "../../../services/api/api";
-import { ILoginData } from "../../../types";
+import { IError, ILoginData } from "../../../types";
 import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { setAuth } from "../../../state/slices/auth";
 
@@ -58,7 +58,7 @@ const Login = () => {
                                     {isError && (
                                         <Alert
                                             style={{ marginBottom: 24 }}
-                                            message={error?.message}
+                                            message={(error as IError)?.message}
                                             type="error"
                                             closable
                                         />
