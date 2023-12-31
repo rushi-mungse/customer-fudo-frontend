@@ -1,8 +1,9 @@
 import { Button, Form, Input, message } from "antd";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useMutation } from "react-query";
-import { IChangePasswordData, IError } from "../../types";
+import { IChangePasswordData, IErrorData } from "../../types";
 import { changePassword } from "../../services/api/api";
+import { AxiosError } from "axios";
 
 interface ChangePasswordType {
     oldPassword?: string;
@@ -13,7 +14,7 @@ const ChangePassword = () => {
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
-    const { mutate, isError, error, isLoading, isSuccess } = useMutation({
+    const { mutate, isLoading } = useMutation({
         mutationKey: ["sendOtp"],
         mutationFn: async (data: IChangePasswordData) => changePassword(data),
         onSuccess: async () => {
@@ -24,15 +25,15 @@ const ChangePassword = () => {
             });
             form.resetFields();
         },
+        onError: async (err: AxiosError) => {
+            const errors = err.response?.data as unknown as IErrorData;
+            messageApi.open({
+                type: "error",
+                content: <span>{errors.error[0].msg}</span>,
+                duration: 3,
+            });
+        },
     });
-
-    if (isError) {
-        messageApi.open({
-            type: "error",
-            content: (error as IError)?.message,
-            duration: 3,
-        });
-    }
 
     return (
         <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md p-4 bg-pure mt-10">
@@ -45,7 +46,6 @@ const ChangePassword = () => {
                         oldPassword: values.oldPassword,
                         newPassword: values.newPassword,
                     });
-                    if (isSuccess) setTimeout(() => form.resetFields(), 1000);
                 }}
                 autoComplete="off"
             >
