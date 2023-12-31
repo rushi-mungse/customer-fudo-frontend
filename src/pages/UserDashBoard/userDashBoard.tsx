@@ -7,7 +7,7 @@ import {
     ShoppingCartOutlined,
     LogoutOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Button } from "antd";
 import { useQuery } from "react-query";
 import { logout } from "../../services/api/api";
 import { useAppDispatch } from "../../hooks/reduxHooks";
@@ -25,9 +25,6 @@ const { Header, Sider, Content } = Layout;
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [content, setContent] = useState<JSX.Element>(CONTENT[1]);
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
     const dispatch = useAppDispatch();
 
     const { refetch } = useQuery({
