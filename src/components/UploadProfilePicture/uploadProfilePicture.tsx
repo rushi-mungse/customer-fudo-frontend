@@ -26,7 +26,12 @@ const UploadProfilePicture = () => {
             });
             onSuccess();
         } catch (error) {
-            onError({ event: error });
+            messageApi.open({
+                type: "error",
+                content: "Something went wrong.",
+                duration: 3,
+            });
+            onError();
         }
 
         return;
