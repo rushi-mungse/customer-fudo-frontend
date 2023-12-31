@@ -2,7 +2,7 @@ import { Form, Input } from "antd";
 import { Button } from "../../../ui";
 import { useMutation } from "react-query";
 import { MailOutlined } from "@ant-design/icons";
-import { IForgotPasswordData } from "../../../types";
+import { IEmailData } from "../../../types";
 import { forgetPassword } from "../../../services/api/api";
 import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { setOtpInfo } from "../../../state/slices/otpInfo";
@@ -18,7 +18,7 @@ const ForgetPassword = () => {
 
     const { mutate } = useMutation({
         mutationKey: ["forgotPassword"],
-        mutationFn: async (data: IForgotPasswordData) => forgetPassword(data),
+        mutationFn: async (data: IEmailData) => forgetPassword(data),
         onSuccess: async ({ data }) => {
             dispatch(setOtpInfo({ ...data, fullName: null }));
             navigate("/auth/set-password");
