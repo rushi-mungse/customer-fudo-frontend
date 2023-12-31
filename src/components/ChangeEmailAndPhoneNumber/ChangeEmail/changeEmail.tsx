@@ -1,21 +1,23 @@
-import { Button, Form, Input, Steps } from "antd";
-import { InputOTP } from "antd-input-otp";
-import { MailOutlined } from "@ant-design/icons";
-import { useAppSelector } from "../../../hooks/reduxHooks";
+import { Steps } from "antd";
 import { RootState } from "../../../state/store";
-
-interface FieldType {
-    newEmail?: string;
-    otp?: string;
-}
+import { useAppSelector } from "../../../hooks/reduxHooks";
+import {
+    SendVerificationCodeNewEmail,
+    SendVerificationCodeOldEmail,
+    VerifySentOtpNewEmail,
+    VerifySentOtpOldEmail,
+} from "./";
+import { useState } from "react";
 
 const ChangeEmail = () => {
+    const [step, setStep] = useState(0);
+
     const { user } = useAppSelector((state: RootState) => state.authReducer);
     return (
         <Steps
             direction="vertical"
             size="small"
-            current={0}
+            current={step}
             items={[
                 {
                     title: (
@@ -24,10 +26,10 @@ const ChangeEmail = () => {
                         </span>
                     ),
                     description: (
-                        <div className="py-2 flex items-center justify-between mb-2">
-                            <span> {user?.email}</span>
-                            <Button>Send Otp</Button>
-                        </div>
+                        <SendVerificationCodeOldEmail
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
                 {
@@ -43,28 +45,7 @@ const ChangeEmail = () => {
                         </div>
                     ),
                     description: (
-                        <div className="py-2">
-                            <Form
-                                onFinish={() => {}}
-                                className="flex items-center justify-between py-2"
-                            >
-                                <Form.Item<FieldType> name="otp">
-                                    <InputOTP
-                                        inputType="numeric"
-                                        length={4}
-                                        inputStyle={{
-                                            height: 40,
-                                            width: 40,
-                                            fontSize: 16,
-                                            padding: 4,
-                                        }}
-                                    />
-                                </Form.Item>
-                                <Button disabled className="mb-6">
-                                    Verify Otp
-                                </Button>
-                            </Form>
-                        </div>
+                        <VerifySentOtpOldEmail step={step} setStep={setStep} />
                     ),
                 },
                 {
@@ -74,37 +55,10 @@ const ChangeEmail = () => {
                         </span>
                     ),
                     description: (
-                        <Form
-                            onFinish={() => {}}
-                            autoComplete="off"
-                            className="flex items-center justify-between py-2 gap-2"
-                        >
-                            <Form.Item<FieldType>
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please enter your email",
-                                    },
-                                    {
-                                        type: "email",
-                                        message: "Please enter valid email",
-                                    },
-                                ]}
-                                style={{ width: "100%" }}
-                                name="newEmail"
-                            >
-                                <Input
-                                    placeholder="Enter your new email address"
-                                    prefix={
-                                        <MailOutlined className="text-pure-800 pr-2" />
-                                    }
-                                    className="font-light text-pure-800"
-                                />
-                            </Form.Item>
-                            <Button className="mb-6" disabled>
-                                Change
-                            </Button>
-                        </Form>
+                        <SendVerificationCodeNewEmail
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
                 {
@@ -120,28 +74,7 @@ const ChangeEmail = () => {
                         </div>
                     ),
                     description: (
-                        <div className="py-2">
-                            <Form
-                                onFinish={() => {}}
-                                className="flex items-center justify-between py-2"
-                            >
-                                <Form.Item name="otp">
-                                    <InputOTP
-                                        inputType="numeric"
-                                        length={4}
-                                        inputStyle={{
-                                            height: 40,
-                                            width: 40,
-                                            fontSize: 16,
-                                            padding: 4,
-                                        }}
-                                    />
-                                </Form.Item>
-                                <Button disabled className="mb-4">
-                                    Verify Otp
-                                </Button>
-                            </Form>
-                        </div>
+                        <VerifySentOtpNewEmail step={step} setStep={setStep} />
                     ),
                 },
             ]}
