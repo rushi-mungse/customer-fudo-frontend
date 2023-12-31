@@ -4,9 +4,10 @@ import { LuClipboardType } from "react-icons/lu";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { RootState } from "../../state/store";
 import { useMutation } from "react-query";
-import { IUpdateFullNameData } from "../../types";
+import { IErrorData, IUpdateFullNameData } from "../../types";
 import { updateFullName } from "../../services/api/api";
 import { setAuth } from "../../state/slices/auth";
+import { AxiosError } from "axios";
 
 interface FieldType {
     fullName?: string;
@@ -35,6 +36,14 @@ const UpdateFullName = () => {
                         updated successfully.
                     </span>
                 ),
+                duration: 3,
+            });
+        },
+        onError: async (err: AxiosError) => {
+            const errors = err.response?.data as unknown as IErrorData;
+            messageApi.open({
+                type: "error",
+                content: <span>{errors.error[0].msg}</span>,
                 duration: 3,
             });
         },
