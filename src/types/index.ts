@@ -39,7 +39,7 @@ export interface ILoginData {
     password: string;
 }
 
-export interface IForgotPasswordData {
+export interface IEmailData {
     email: string;
 }
 
@@ -65,4 +65,14 @@ export interface IError extends Error {
     data: {
         error: [];
     };
+}
+
+export interface IHttpError {
+    type: string;
+    msg: string;
+    path: string;
+    location: string;
+}
+export interface IErrorData {
+    error: IHttpError[];
 }
