@@ -12,6 +12,8 @@ import ChangeEmailAndPhoneNumber from "./ChangeEmailAndPhoneNumber/changeEmailAn
 import UploadProfilePicture from "./UploadProfilePicture/uploadProfilePicture";
 import UpdateFullName from "./UpdateFullName/updateFullName";
 import ChangePassword from "./ChangePassword/changePassword";
+import Review from "./Review/review";
+import WhatWeServe from "./WhatWeServe/whatWeServe";
 
 export {
     Header,
@@ -28,4 +30,6 @@ export {
     UploadProfilePicture,
     UpdateFullName,
     ChangePassword,
+    Review,
+    WhatWeServe,
 };
