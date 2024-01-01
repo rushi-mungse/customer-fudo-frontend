@@ -51,7 +51,7 @@ const UpdateFullName = () => {
 
     return (
         <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md p-4 bg-pure mt-10">
-            <h1 className="text-active mb-4">Update Profile</h1>
+            <h1 className="text-active mb-4">Update Full Name</h1>
             {contextHolder}
             <Form
                 onFinish={(values: FieldType) => {
@@ -61,7 +61,7 @@ const UpdateFullName = () => {
                 initialValues={{
                     fullName: user?.fullName,
                     email: user?.email,
-                    phoneNumber: null,
+                    phoneNumber: user?.phoneNumber,
                     role: user?.role,
                 }}
             >
@@ -144,7 +144,7 @@ const UpdateFullName = () => {
                 </div>
                 <div className="w-full flex justify-end">
                     <Button loading={isLoading} htmlType="submit">
-                        Update Profile
+                        Update Full Name
                     </Button>
                 </div>
             </Form>
