@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from "antd";
-import { MailOutlined } from "@ant-design/icons";
+import { PhoneOutlined } from "@ant-design/icons";
 import { TPropTypes } from "../../";
 import { useAppDispatch } from "../../../../../hooks/reduxHooks";
 import { useMutation } from "react-query";
@@ -73,7 +73,7 @@ const SendOtpForSetNewPhoneNumber = ({ step, setStep }: TPropTypes) => {
             >
                 <Input
                     placeholder="Enter your new phone number"
-                    prefix={<MailOutlined className="text-pure-800 pr-2" />}
+                    prefix={<PhoneOutlined className="text-pure-800 pr-2" />}
                     className="font-light text-pure-800"
                     disabled={step !== 2}
                 />
