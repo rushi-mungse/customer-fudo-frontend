@@ -1,18 +1,21 @@
+import { useState } from "react";
 import { Steps } from "antd";
 import { RootState } from "../../../state/store";
 import { useAppSelector } from "../../../hooks/reduxHooks";
 import {
-    SendVerificationCodeNewEmail,
-    SendVerificationCodeOldEmail,
-    VerifySentOtpNewEmail,
-    VerifySentOtpOldEmail,
+    SendOtpForChangeOldEmail,
+    VerifyOtpForChangeOldEmail,
+    SendOtpForSetNewEmail,
+    VerifyOtpForSetNewEmail,
 } from "./";
-import { useState } from "react";
 
 const ChangeEmail = () => {
     const [step, setStep] = useState(0);
-
     const { user } = useAppSelector((state: RootState) => state.authReducer);
+    const { otpInfo } = useAppSelector(
+        (state: RootState) => state.otpInfoReducer
+    );
+
     return (
         <Steps
             direction="vertical"
@@ -26,7 +29,7 @@ const ChangeEmail = () => {
                         </span>
                     ),
                     description: (
-                        <SendVerificationCodeOldEmail
+                        <SendOtpForChangeOldEmail
                             step={step}
                             setStep={setStep}
                         />
@@ -39,13 +42,16 @@ const ChangeEmail = () => {
                                 Enter verification code sent to registered email
                                 address
                             </span>
-                            <span className="text-dark font-pure-600/50">
+                            <span className="font-light tracking-wide italic">
                                 {user?.email}
                             </span>
                         </div>
                     ),
                     description: (
-                        <VerifySentOtpOldEmail step={step} setStep={setStep} />
+                        <VerifyOtpForChangeOldEmail
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
                 {
@@ -55,10 +61,7 @@ const ChangeEmail = () => {
                         </span>
                     ),
                     description: (
-                        <SendVerificationCodeNewEmail
-                            step={step}
-                            setStep={setStep}
-                        />
+                        <SendOtpForSetNewEmail step={step} setStep={setStep} />
                     ),
                 },
                 {
@@ -68,13 +71,16 @@ const ChangeEmail = () => {
                                 Enter verification code sent to new email
                                 address{" "}
                             </span>
-                            <span className="text-dark font-pure-600/50">
-                                {user?.email}
+                            <span className="font-light tracking-wide italic">
+                                {step > 2 && otpInfo?.email}
                             </span>
                         </div>
                     ),
                     description: (
-                        <VerifySentOtpNewEmail step={step} setStep={setStep} />
+                        <VerifyOtpForSetNewEmail
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
             ]}
