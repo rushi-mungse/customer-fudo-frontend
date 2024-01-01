@@ -16,6 +16,8 @@ export interface IOtpData {
     fullName: string;
     email: string;
     hashOtp: string;
+    otp?: string;
+    phoneNumber: string;
 }
 
 export interface ITenantData {
@@ -28,7 +30,6 @@ export interface IUserData {
     fullName: string;
     email: string;
     id: number;
-    tenant: ITenantData | null;
     role: string;
     avatar: string | null;
     phoneNumber: string | null;
@@ -75,4 +76,17 @@ export interface IHttpError {
 }
 export interface IErrorData {
     error: IHttpError[];
+}
+
+export interface ISendOtpByPhoneNumberData {
+    phoneNumber: string;
+    countryCode: string;
+}
+
+export interface IVerifyOtpByPhoneNumberData {
+    phoneNumber: string;
+    otp: string;
+    hashOtp: string;
+    fullName: string;
+    countryCode: string;
 }
