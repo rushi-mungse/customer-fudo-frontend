@@ -38,14 +38,14 @@ const ChangePhoneNumber = () => {
                 },
                 {
                     title: (
-                        <div>
+                        <>
                             <span className="text-active inline-block">
                                 Enter verification code sent to old phone number
                             </span>
-                            <span className="font-light tracking-wide italic">
+                            <div className="font-light tracking-wide italic">
                                 {user?.phoneNumber}
-                            </span>
-                        </div>
+                            </div>
+                        </>
                     ),
                     description: (
                         <VerifyOtpForChangeOldPhoneNumber
@@ -69,14 +69,14 @@ const ChangePhoneNumber = () => {
                 },
                 {
                     title: (
-                        <div>
+                        <>
                             <span className="text-active inline-block">
                                 Enter verification code sent to new phone number
                             </span>
-                            <span className="font-light tracking-wide italic">
+                            <div className="font-light tracking-wide italic">
                                 {step > 2 && otpInfo?.phoneNumber}
-                            </span>
-                        </div>
+                            </div>
+                        </>
                     ),
                     description: (
                         <VerifyOtpForSetNewPhoneNumber

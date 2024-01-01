@@ -42,9 +42,9 @@ const ChangeEmail = () => {
                                 Enter verification code sent to registered email
                                 address
                             </span>
-                            <span className="font-light tracking-wide italic">
+                            <div className="font-light tracking-wide italic">
                                 {user?.email}
-                            </span>
+                            </div>
                         </div>
                     ),
                     description: (
@@ -66,15 +66,15 @@ const ChangeEmail = () => {
                 },
                 {
                     title: (
-                        <div>
+                        <>
                             <span className="text-active inline-block">
                                 Enter verification code sent to new email
                                 address{" "}
                             </span>
-                            <span className="font-light tracking-wide italic">
+                            <div className="font-light tracking-wide italic">
                                 {step > 2 && otpInfo?.email}
-                            </span>
-                        </div>
+                            </div>
+                        </>
                     ),
                     description: (
                         <VerifyOtpForSetNewEmail
