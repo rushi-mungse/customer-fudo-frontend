@@ -16,8 +16,12 @@ export const otpInfoSlice = createSlice({
             const data = action.payload;
             state.otpInfo = data;
         },
+
+        clearOtpInfo: (state) => {
+            state.otpInfo = null;
+        },
     },
 });
 
-export const { setOtpInfo } = otpInfoSlice.actions;
+export const { setOtpInfo, clearOtpInfo } = otpInfoSlice.actions;
 export default otpInfoSlice.reducer;
