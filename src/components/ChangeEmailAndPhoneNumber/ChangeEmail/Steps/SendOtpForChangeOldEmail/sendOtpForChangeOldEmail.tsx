@@ -4,10 +4,10 @@ import {
     useAppSelector,
 } from "../../../../../hooks/reduxHooks";
 import { RootState } from "../../../../../state/store";
-import { TPropTypes } from "../../";
+import { TPropTypes } from "../..";
 import { useMutation } from "react-query";
 import { IEmailData, IErrorData } from "../../../../../types";
-import { sendVerificationCodeOldEmail } from "../../../../../services/api/api";
+import { sendOtpForChangeOldEmail } from "../../../../../services/api/api";
 import { setOtpInfo } from "../../../../../state/slices/otpInfo";
 import { AxiosError } from "axios";
 
@@ -18,8 +18,9 @@ const SendVerificationCodeOldEmail = ({ step, setStep }: TPropTypes) => {
 
     const { mutate, isLoading } = useMutation({
         mutationKey: ["sendOtp"],
-        mutationFn: async (data: IEmailData) =>
-            sendVerificationCodeOldEmail(data),
+
+        mutationFn: async (data: IEmailData) => sendOtpForChangeOldEmail(data),
+
         onSuccess: async ({ data }) => {
             dispatch(setOtpInfo(data.otpInfo));
             setStep(step + 1);
@@ -60,7 +61,10 @@ const SendVerificationCodeOldEmail = ({ step, setStep }: TPropTypes) => {
     return (
         <div className="py-2 flex items-center justify-between mb-2">
             {contextHolder}
-            <span> {user?.email}</span>
+            <span className="font-light tracking-wide italic">
+                {" "}
+                {user?.email}
+            </span>
             <Button
                 disabled={step !== 0}
                 onClick={handleOnClick}

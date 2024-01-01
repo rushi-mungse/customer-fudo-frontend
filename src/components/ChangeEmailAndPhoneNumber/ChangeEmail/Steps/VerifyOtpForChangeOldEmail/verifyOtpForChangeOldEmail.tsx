@@ -1,12 +1,16 @@
 import { Button, Form, message } from "antd";
 import { InputOTP } from "antd-input-otp";
-import { TPropTypes } from "../../";
+import { TPropTypes } from "../..";
 import { useMutation } from "react-query";
 import { IErrorData, IVerifyOtpData } from "../../../../../types";
-import { verifySentOtpOldEmail } from "../../../../../services/api/api";
-import { useAppSelector } from "../../../../../hooks/reduxHooks";
+import { verifyOtpForChangeOldEmail } from "../../../../../services/api/api";
+import {
+    useAppDispatch,
+    useAppSelector,
+} from "../../../../../hooks/reduxHooks";
 import { RootState } from "../../../../../state/store";
 import { AxiosError } from "axios";
+import { clearOtpInfo } from "../../../../../state/slices/otpInfo";
 
 const VerifySentOtpOldEmail = ({ step, setStep }: TPropTypes) => {
     const [form] = Form.useForm();
@@ -14,10 +18,14 @@ const VerifySentOtpOldEmail = ({ step, setStep }: TPropTypes) => {
     const otpInfo = useAppSelector(
         (state: RootState) => state.otpInfoReducer.otpInfo
     );
+    const dispatch = useAppDispatch();
 
     const { mutate, isLoading } = useMutation({
-        mutationKey: ["sendOtp"],
-        mutationFn: async (data: IVerifyOtpData) => verifySentOtpOldEmail(data),
+        mutationKey: ["verifyOtp"],
+
+        mutationFn: async (data: IVerifyOtpData) =>
+            verifyOtpForChangeOldEmail(data),
+
         onSuccess: async () => {
             setStep(step + 1);
             messageApi.open({
@@ -26,7 +34,9 @@ const VerifySentOtpOldEmail = ({ step, setStep }: TPropTypes) => {
                 duration: 3,
             });
             form.resetFields();
+            dispatch(clearOtpInfo());
         },
+
         onError: async (err: AxiosError) => {
             const errors = err.response?.data as unknown as IErrorData;
             messageApi.open({
@@ -71,6 +81,7 @@ const VerifySentOtpOldEmail = ({ step, setStep }: TPropTypes) => {
                             fontSize: 16,
                             padding: 4,
                         }}
+                        disabled={step !== 1}
                         name="otp"
                     />
                 </Form.Item>

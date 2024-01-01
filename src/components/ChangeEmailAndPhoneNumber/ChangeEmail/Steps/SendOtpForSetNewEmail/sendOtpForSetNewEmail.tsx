@@ -1,9 +1,9 @@
 import { Button, Form, Input, message } from "antd";
 import { MailOutlined } from "@ant-design/icons";
-import { TPropTypes } from "../../";
+import { TPropTypes } from "../..";
 import { useAppDispatch } from "../../../../../hooks/reduxHooks";
 import { useMutation } from "react-query";
-import { sendVerificationCodeNewEmail } from "../../../../../services/api/api";
+import { sendOtpForSetNewEmail } from "../../../../../services/api/api";
 import { IEmailData, IErrorData } from "../../../../../types";
 import { setOtpInfo } from "../../../../../state/slices/otpInfo";
 import { AxiosError } from "axios";
@@ -15,8 +15,9 @@ const SendVerificationCodeNewEmail = ({ step, setStep }: TPropTypes) => {
 
     const { mutate, isLoading } = useMutation({
         mutationKey: ["sendOtp"],
-        mutationFn: async (data: IEmailData) =>
-            sendVerificationCodeNewEmail(data),
+
+        mutationFn: async (data: IEmailData) => sendOtpForSetNewEmail(data),
+
         onSuccess: async ({ data }) => {
             dispatch(setOtpInfo(data.otpInfo));
             setStep(step + 1);
@@ -31,9 +32,9 @@ const SendVerificationCodeNewEmail = ({ step, setStep }: TPropTypes) => {
                 ),
                 duration: 3,
             });
-
             form.resetFields();
         },
+
         onError: async (err: AxiosError) => {
             const errors = err.response?.data as unknown as IErrorData;
             messageApi.open({
@@ -43,6 +44,7 @@ const SendVerificationCodeNewEmail = ({ step, setStep }: TPropTypes) => {
             });
         },
     });
+
     return (
         <Form
             form={form}
@@ -71,6 +73,7 @@ const SendVerificationCodeNewEmail = ({ step, setStep }: TPropTypes) => {
                     placeholder="Enter your new email address"
                     prefix={<MailOutlined className="text-pure-800 pr-2" />}
                     className="font-light text-pure-800"
+                    disabled={step !== 2}
                 />
             </Form.Item>
             <Button

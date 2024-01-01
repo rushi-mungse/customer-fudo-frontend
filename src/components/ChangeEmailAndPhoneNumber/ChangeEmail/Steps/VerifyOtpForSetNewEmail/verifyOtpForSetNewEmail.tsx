@@ -8,9 +8,10 @@ import {
 import { RootState } from "../../../../../state/store";
 import { useMutation } from "react-query";
 import { IErrorData, IVerifyOtpData } from "../../../../../types";
-import { verifySentOtpNewEmail } from "../../../../../services/api/api";
+import { verifyOtpForSetNewEmail } from "../../../../../services/api/api";
 import { setAuth } from "../../../../../state/slices/auth";
 import { AxiosError } from "axios";
+import { clearOtpInfo } from "../../../../../state/slices/otpInfo";
 
 const VerifySentOtpNewEmail = ({ step, setStep }: TPropTypes) => {
     const [form] = Form.useForm();
@@ -21,8 +22,11 @@ const VerifySentOtpNewEmail = ({ step, setStep }: TPropTypes) => {
     const dispatch = useAppDispatch();
 
     const { mutate, isLoading } = useMutation({
-        mutationKey: ["sendOtp"],
-        mutationFn: async (data: IVerifyOtpData) => verifySentOtpNewEmail(data),
+        mutationKey: ["verifyOtp"],
+
+        mutationFn: async (data: IVerifyOtpData) =>
+            verifyOtpForSetNewEmail(data),
+
         onSuccess: async ({ data }) => {
             dispatch(setAuth(data.user));
             setStep(0);
@@ -31,8 +35,10 @@ const VerifySentOtpNewEmail = ({ step, setStep }: TPropTypes) => {
                 content: "Verify otp successfully.",
                 duration: 3,
             });
+            dispatch(clearOtpInfo());
             form.resetFields();
         },
+
         onError: async (err: AxiosError) => {
             const errors = err.response?.data as unknown as IErrorData;
             messageApi.open({
@@ -42,6 +48,7 @@ const VerifySentOtpNewEmail = ({ step, setStep }: TPropTypes) => {
             });
         },
     });
+
     return (
         <div className="py-2">
             <Form
@@ -76,6 +83,7 @@ const VerifySentOtpNewEmail = ({ step, setStep }: TPropTypes) => {
                             fontSize: 16,
                             padding: 4,
                         }}
+                        disabled={step !== 3}
                     />
                 </Form.Item>
                 <Button
