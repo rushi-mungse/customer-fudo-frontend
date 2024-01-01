@@ -6,6 +6,8 @@ import {
     IVerifyOtpData,
     IUpdateFullNameData,
     IChangePasswordData,
+    ISendOtpByPhoneNumberData,
+    IVerifyOtpByPhoneNumberData,
 } from "../../types";
 import api from "./client";
 
@@ -33,16 +35,30 @@ export const updateFullName = (data: IUpdateFullNameData) =>
 export const changePassword = (data: IChangePasswordData) =>
     api.post("/user/change-password", data);
 
-export const sendVerificationCodeOldEmail = (data: IEmailData) =>
+export const sendOtpForChangeOldEmail = (data: IEmailData) =>
     api.post("/user/send-otp-for-email-change", data);
 
-export const verifySentOtpOldEmail = (data: IVerifyOtpData) =>
+export const verifyOtpForChangeOldEmail = (data: IVerifyOtpData) =>
     api.post("/user/verify-otp-for-email-change", data);
 
-export const sendVerificationCodeNewEmail = (data: IEmailData) =>
+export const sendOtpForSetNewEmail = (data: IEmailData) =>
     api.post("/user/send-otp-to-new-email-for-email-change", data);
 
-export const verifySentOtpNewEmail = (data: IVerifyOtpData) =>
+export const verifyOtpForSetNewEmail = (data: IVerifyOtpData) =>
     api.post("/user/verify-new-email-for-email-change", data);
+
+export const sendOtpForChangeOldPhoneNumber = (
+    data: ISendOtpByPhoneNumberData
+) => api.post("/user/send-otp-for-change-old-phone-number", data);
+
+export const verifyOtpForChangeOldPhoneNumber = (
+    data: IVerifyOtpByPhoneNumberData
+) => api.post("/user/verify-otp-for-change-old-phone-number", data);
+
+export const sendOtpForSetNewPhoneNumber = (data: ISendOtpByPhoneNumberData) =>
+    api.post("/user/send-otp-for-set-new-phone-number", data);
+
+export const verifyOtpForSetPhoneNumber = (data: IVerifyOtpByPhoneNumberData) =>
+    api.post("/user/verify-otp-for-set-new-phone-number", data);
 
 export const self = () => api.get("/auth/self");
