@@ -2,7 +2,6 @@ import { Link, NavLink } from "react-router-dom";
 import { GiShoppingCart } from "react-icons/gi";
 import { FaRegUser } from "react-icons/fa6";
 import { Button, Logo, HeaderLinks, InputWithSearch } from "../../ui";
-import { SelectWithSearch } from "../";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { RootState } from "../../state/store";
 
@@ -16,12 +15,12 @@ const Header = () => {
                 <nav className="flex items-center justify-between py-2 container mx-auto">
                     <div className="flex-center gap-4">
                         <Logo />
-                        <div className="flex items-center gap-1 ring-1 ring-dark/80 px-3 py-1 rounded-full w-[200px] h-7">
+                        {/* <div className="flex items-center gap-1 ring-1 ring-dark/80 px-3 py-1 rounded-full w-[200px] h-7">
                             <span className="bg-active rounded-[50%] w-[15px] h-[15px] flex-center">
                                 <span className="bg-pure rounded-[50%] w-[25%] h-[25%]"></span>
                             </span>
                             <SelectWithSearch />
-                        </div>
+                        </div> */}
                     </div>
                     <HeaderLinks />
                     <div className="flex-center gap-4">
