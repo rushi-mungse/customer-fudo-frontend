@@ -1,16 +1,22 @@
-import { Button, Form, Input, Steps } from "antd";
-import { InputOTP } from "antd-input-otp";
-import { MailOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { Steps } from "antd";
+
 import { useAppSelector } from "../../../hooks/reduxHooks";
 import { RootState } from "../../../state/store";
-
-interface FieldType {
-    otp?: string;
-    phoneNumber?: number;
-}
+import {
+    SendOtpForChangeOldPhoneNumber,
+    VerifyOtpForChangeOldPhoneNumber,
+    SendOtpForSetNewPhoneNumber,
+    VerifyOtpForSetNewPhoneNumber,
+} from "./";
 
 const ChangePhoneNumber = () => {
     const { user } = useAppSelector((state: RootState) => state.authReducer);
+    const { otpInfo } = useAppSelector(
+        (state: RootState) => state.otpInfoReducer
+    );
+    const [step, setStep] = useState(user?.phoneNumber ? 0 : 2);
+
     return (
         <Steps
             direction="vertical"
@@ -24,10 +30,10 @@ const ChangePhoneNumber = () => {
                         </span>
                     ),
                     description: (
-                        <div className="py-2 flex items-center justify-between mb-2">
-                            <span> {user?.email}</span>
-                            <Button>Send Otp</Button>
-                        </div>
+                        <SendOtpForChangeOldPhoneNumber
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
                 {
@@ -36,34 +42,16 @@ const ChangePhoneNumber = () => {
                             <span className="text-active inline-block">
                                 Enter verification code sent to old phone number
                             </span>
-                            <span className="text-dark font-pure-600/50">
-                                {user?.email}
+                            <span className="font-light tracking-wide italic">
+                                {user?.phoneNumber}
                             </span>
                         </div>
                     ),
                     description: (
-                        <div className="py-2">
-                            <Form
-                                onFinish={() => {}}
-                                className="flex items-center justify-between py-2"
-                            >
-                                <Form.Item<FieldType> name="otp">
-                                    <InputOTP
-                                        inputType="numeric"
-                                        length={4}
-                                        inputStyle={{
-                                            height: 40,
-                                            width: 40,
-                                            fontSize: 16,
-                                            padding: 4,
-                                        }}
-                                    />
-                                </Form.Item>
-                                <Button disabled className="mb-6">
-                                    Verify Otp
-                                </Button>
-                            </Form>
-                        </div>
+                        <VerifyOtpForChangeOldPhoneNumber
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
                 {
@@ -73,34 +61,10 @@ const ChangePhoneNumber = () => {
                         </span>
                     ),
                     description: (
-                        <Form
-                            onFinish={() => {}}
-                            autoComplete="off"
-                            className="flex items-center justify-between py-2 gap-2"
-                        >
-                            <Form.Item<FieldType>
-                                rules={[
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please enter your new phone number",
-                                    },
-                                ]}
-                                style={{ width: "100%" }}
-                                name="phoneNumber"
-                            >
-                                <Input
-                                    placeholder="Enter your new phone number"
-                                    prefix={
-                                        <MailOutlined className="text-pure-800 pr-2" />
-                                    }
-                                    className="font-light text-pure-800"
-                                />
-                            </Form.Item>
-                            <Button className="mb-6" disabled>
-                                Change
-                            </Button>
-                        </Form>
+                        <SendOtpForSetNewPhoneNumber
+                            step={step}
+                            setStep={setStep}
+                        />
                     ),
                 },
                 {
@@ -109,34 +73,16 @@ const ChangePhoneNumber = () => {
                             <span className="text-active inline-block">
                                 Enter verification code sent to new phone number
                             </span>
-                            <span className="text-dark font-pure-600/50">
-                                {user?.email}
+                            <span className="font-light tracking-wide italic">
+                                {step > 2 && otpInfo?.phoneNumber}
                             </span>
                         </div>
                     ),
                     description: (
-                        <div className="py-2">
-                            <Form
-                                onFinish={() => {}}
-                                className="flex items-center justify-between py-2"
-                            >
-                                <Form.Item name="otp">
-                                    <InputOTP
-                                        inputType="numeric"
-                                        length={4}
-                                        inputStyle={{
-                                            height: 40,
-                                            width: 40,
-                                            fontSize: 16,
-                                            padding: 4,
-                                        }}
-                                    />
-                                </Form.Item>
-                                <Button disabled className="mb-4">
-                                    Verify Otp
-                                </Button>
-                            </Form>
-                        </div>
+                        <VerifyOtpForSetNewPhoneNumber
+                            setStep={setStep}
+                            step={step}
+                        />
                     ),
                 },
             ]}
