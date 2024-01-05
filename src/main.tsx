@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { ConfigProvider } from "antd";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { store } from "./state/store";
+import { store } from "./state";
 import App from "./App";
 import "./index.css";
 import "antd/dist/reset.css";
