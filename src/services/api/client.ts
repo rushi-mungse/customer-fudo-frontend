@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: import.meta.env.VITE_API_BASE_URL_5001,
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ api.interceptors.response.use(
             originalRequest._isRetry = true;
             try {
                 await axios.get(
-                    `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
+                    `${import.meta.env.VITE_API_BASE_URL_5001}/auth/refresh`,
                     {
                         withCredentials: true,
                         headers: {
@@ -43,7 +43,7 @@ api.interceptors.response.use(
 
 export const refresh = async () => {
     const data = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
+        `${import.meta.env.VITE_API_BASE_URL_5001}/auth/refresh`,
         {
             withCredentials: true,
             headers: {
@@ -55,10 +55,24 @@ export const refresh = async () => {
     return data;
 };
 
-export const uploadFile = async (data: FormData) => {
+export const uploadUserProfilePicture = async (data: FormData) => {
     return await axios({
         method: "POST",
-        url: `${import.meta.env.VITE_API_BASE_URL}/user/upload-profile-picture`,
+        url: `${
+            import.meta.env.VITE_API_BASE_URL_5001
+        }/user/upload-profile-picture`,
+        data,
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+export const addProduct = async (data: FormData) => {
+    return await axios({
+        method: "POST",
+        url: `${import.meta.env.VITE_API_BASE_URL_5002}/product/create`,
         data,
         withCredentials: true,
         headers: {

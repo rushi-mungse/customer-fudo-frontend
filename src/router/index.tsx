@@ -1,3 +1,6 @@
+import { RootState } from "../state";
+import { useAppSelector } from "../hooks/reduxHooks";
+import Layout from "../Layout";
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -5,18 +8,15 @@ import {
     Outlet,
     Route,
 } from "react-router-dom";
-import { useAppSelector } from "../hooks/reduxHooks";
-import Layout from "../Layout";
 import {
     ForgetPassword,
-    HomePage,
+    Home,
     Login,
-    OtpVerification,
+    EmailVerification,
     ResetPassword,
-    SignUp,
+    SendVerificationCode,
     UserDashBoard,
 } from "../pages";
-import { RootState } from "../state/store";
 
 const GuestRoute = () => {
     const isAuth = useAppSelector(
@@ -32,14 +32,17 @@ const ProtectedRoute = () => {
     return !isAuth ? <Navigate to="/" /> : <Outlet />;
 };
 
-const router = createBrowserRouter(
+const Router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />}>
-            <Route index path="" element={<HomePage />} />
+            <Route index path="" element={<Home />} />
             <Route path="auth" element={<GuestRoute />}>
                 <Route path="login" element={<Login />} />
-                <Route path="signup" element={<SignUp />} />
-                <Route path="otp-verification" element={<OtpVerification />} />
+                <Route path="signup" element={<SendVerificationCode />} />
+                <Route
+                    path="otp-verification"
+                    element={<EmailVerification />}
+                />
                 <Route path="forget-password" element={<ForgetPassword />} />
                 <Route path="set-password" element={<ResetPassword />} />
             </Route>
@@ -50,4 +53,4 @@ const router = createBrowserRouter(
     )
 );
 
-export default router;
+export default Router;

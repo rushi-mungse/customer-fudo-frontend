@@ -1,8 +1,7 @@
-import Button from "./Button/button";
-import Logo from "./Logo/logo";
-import HeaderLinks from "./HeaderLinks/headerLinks";
-import InputWithSearch from "./InputWithSearch/inputWithSearch";
-import ProductCard from "./ProductCard/productCard";
-import Serve from "./Serve/serve";
-
-export { Button, Logo, HeaderLinks, InputWithSearch, ProductCard, Serve };
+export { default as ButtonUi } from "./ButtonUi";
+export { default as LogoUi } from "./LogoUi";
+export { default as HeaderLinksUi } from "./HeaderLinksUi";
+export { default as SearchUi } from "./SearchUi";
+export { default as ProductCardUi } from "./ProductCardUi";
+export { default as ServeUi } from "./ServeUi";
+export { default as InputUi } from "./InputUi";

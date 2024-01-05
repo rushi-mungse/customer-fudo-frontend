@@ -1,15 +1,15 @@
-import HomePage from "./Home/home";
-import SignUp from "./auth/SignUp/signUp";
-import OtpVerification from "./auth/OtpVerification/otpVerification";
-import Login from "./auth/Login/login";
-import UserDashBoard from "./UserDashBoard/userDashBoard";
-import ForgetPassword from "./auth/ForgetPassword/forgetPassword";
-import ResetPassword from "./auth/ResetPassword/resetPassword";
+import Home from "./Home";
+import SendVerificationCode from "./auth/SendVerificationCode";
+import EmailVerification from "./auth/EmailVerification";
+import Login from "./auth/Login";
+import UserDashBoard from "./DashBoard";
+import ResetPassword from "./auth/ResetPassword";
+import ForgetPassword from "./auth/ForgetPassword";
 
 export {
-    HomePage,
-    SignUp,
-    OtpVerification,
+    Home,
+    SendVerificationCode,
+    EmailVerification,
     Login,
     UserDashBoard,
     ForgetPassword,

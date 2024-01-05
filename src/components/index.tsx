@@ -1,30 +1,29 @@
-import Header from "./Header/header";
-import Footer from "./Footer/footer";
-import SelectWithSearch from "./SelectWithSearch/selectWithSearch";
-import BorderAndOr from "./BorderAndOr/borderAndOr";
-import OtpBox from "./OtpBox/otpBox";
-import FeaturedProduct from "./FeaturedProduct/featuredProduct";
-import Loader from "./Loader/loader";
-import User from "./User/user";
-import UserHistory from "./UserHistory/userHistory";
-import Orders from "./Orders/orders";
-import ChangeEmailAndPhoneNumber from "./ChangeEmailAndPhoneNumber/changeEmailAndPhoneNumber";
-import UploadProfilePicture from "./UploadProfilePicture/uploadProfilePicture";
-import UpdateFullName from "./UpdateFullName/updateFullName";
-import ChangePassword from "./ChangePassword/changePassword";
-import Review from "./Review/review";
-import WhatWeServe from "./WhatWeServe/whatWeServe";
+import Header from "./header";
+import Footer from "./footer";
+import TextBorder from "./TextBorder";
+import OtpBox from "./OtpBox";
+import FeaturedProduct from "./featuredProduct";
+import Loader from "./loader";
+import UserProfile from "./UserProfile";
+import UserOrderHistory from "./UserOrderHistory";
+import Orders from "./orders";
+import ChangeEmailAndPhoneNumber from "./ChangeEmailAndPhoneNumber/ChangeEmailAndPhoneNumber";
+import UploadProfilePicture from "./UploadProfilePicture";
+import UpdateFullName from "./UpdateFullName";
+import ChangePassword from "./ChangePassword";
+import Review from "./Review";
+import WhatWeServe from "./WhatWeServe";
+import CreateProduct from "./CreateProduct";
 
 export {
     Header,
     Footer,
-    SelectWithSearch,
-    BorderAndOr,
+    TextBorder,
     OtpBox,
     FeaturedProduct,
     Loader,
-    User,
-    UserHistory,
+    UserProfile,
+    UserOrderHistory,
     Orders,
     ChangeEmailAndPhoneNumber,
     UploadProfilePicture,
@@ -32,4 +31,5 @@ export {
     ChangePassword,
     Review,
     WhatWeServe,
+    CreateProduct,
 };

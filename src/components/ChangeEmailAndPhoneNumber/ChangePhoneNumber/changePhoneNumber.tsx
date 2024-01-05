@@ -2,19 +2,17 @@ import { useState } from "react";
 import { Steps } from "antd";
 
 import { useAppSelector } from "../../../hooks/reduxHooks";
-import { RootState } from "../../../state/store";
+import { RootState } from "../../../state";
 import {
     SendOtpForChangeOldPhoneNumber,
     VerifyOtpForChangeOldPhoneNumber,
     SendOtpForSetNewPhoneNumber,
     VerifyOtpForSetNewPhoneNumber,
-} from "./";
+} from ".";
 
 const ChangePhoneNumber = () => {
     const { user } = useAppSelector((state: RootState) => state.authReducer);
-    const { otpInfo } = useAppSelector(
-        (state: RootState) => state.otpInfoReducer
-    );
+    const otpInfo = useAppSelector((state: RootState) => state.otpReducer.otp);
     const [step, setStep] = useState(user?.phoneNumber ? 0 : 2);
 
     return (

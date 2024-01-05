@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { setAuth } from "../state/slices/auth";
 import { useAppDispatch } from "./reduxHooks";
-import { self } from "../services/api/api";
+import { self } from "../services/api";
 
 const useRefreshHook = () => {
     const dispatch = useAppDispatch();

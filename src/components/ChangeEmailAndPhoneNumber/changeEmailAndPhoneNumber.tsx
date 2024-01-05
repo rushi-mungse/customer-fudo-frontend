@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Tabs } from "antd";
-import type { TabsProps } from "antd";
-import ChangeEmail from "./ChangeEmail/changeEmail";
-import ChangePhoneNumber from "./ChangePhoneNumber/changePhoneNumber";
+import { Tabs, type TabsProps } from "antd";
+import ChangeEmail from "./ChangeEmail/ChangeEmail";
+import ChangePhoneNumber from "./ChangePhoneNumber/ChangePhoneNumber";
 
 const items: TabsProps["items"] = [
     {

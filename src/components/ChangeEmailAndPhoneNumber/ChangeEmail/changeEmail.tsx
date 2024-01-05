@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { Steps } from "antd";
-import { RootState } from "../../../state/store";
+import { RootState } from "../../../state";
 import { useAppSelector } from "../../../hooks/reduxHooks";
 import {
     SendOtpForChangeOldEmail,
     VerifyOtpForChangeOldEmail,
     SendOtpForSetNewEmail,
     VerifyOtpForSetNewEmail,
-} from "./";
+} from ".";
 
 const ChangeEmail = () => {
     const [step, setStep] = useState(0);
     const { user } = useAppSelector((state: RootState) => state.authReducer);
-    const { otpInfo } = useAppSelector(
-        (state: RootState) => state.otpInfoReducer
-    );
+    const otpInfo = useAppSelector((state: RootState) => state.otpReducer.otp);
 
     return (
         <Steps

@@ -1,50 +1,40 @@
-export interface ISendOtpData {
+export interface RegisterSendOtpDataType {
     fullName: string;
     email: string;
     password: string;
     confirmPassword: string;
 }
 
-export interface IVerifyOtpData {
+export interface EmailVerifyOtpDataType {
     fullName: string;
     email: string;
     hashOtp: string;
     otp: string;
 }
 
-export interface IOtpData {
+export interface OtpDataType {
     fullName: string;
     email: string;
     hashOtp: string;
-    otp?: string;
     phoneNumber: string;
+    otp?: string;
 }
 
-export interface ITenantData {
-    name: string;
-    address: string;
+export interface UserDataType {
     id: number;
-}
-
-export interface IUserData {
     fullName: string;
     email: string;
-    id: number;
     role: string;
     avatar: string | null;
     phoneNumber: string | null;
 }
 
-export interface ILoginData {
+export interface LoginDataType {
     email: string;
     password: string;
 }
 
-export interface IEmailData {
-    email: string;
-}
-
-export interface IResetPasswordData {
+export interface ResetPasswordDataType {
     email: string;
     hashOtp: string;
     otp: string;
@@ -52,41 +42,43 @@ export interface IResetPasswordData {
     confirmPassword: string;
 }
 
-export interface IUpdateFullNameData {
-    fullName: string;
-}
-
-export interface IChangePasswordData {
+export interface ChangePasswordDataType {
     oldPassword: string;
     newPassword: string;
 }
 
-export interface IError extends Error {
-    message: string;
-    data: {
-        error: [];
-    };
-}
-
-export interface IHttpError {
+export interface HttpErrorType {
     type: string;
     msg: string;
     path: string;
     location: string;
 }
-export interface IErrorData {
-    error: IHttpError[];
+export interface ErrorType {
+    error: HttpErrorType[];
 }
 
-export interface ISendOtpByPhoneNumberData {
+export interface PhoneNumberDataType {
     phoneNumber: string;
     countryCode: string;
 }
 
-export interface IVerifyOtpByPhoneNumberData {
+export interface PhoneNumberVerifyOtpDataType {
     phoneNumber: string;
     otp: string;
     hashOtp: string;
     fullName: string;
     countryCode: string;
+}
+
+export interface ProductDataType {
+    name: string;
+    description: string;
+    price: number;
+    size: string;
+    currency: string;
+    availability: boolean;
+    preparationTimeInMinute: number;
+    discount: number;
+    category: string;
+    ingredients: string;
 }
