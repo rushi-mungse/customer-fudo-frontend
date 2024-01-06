@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import { GiShoppingCart } from "react-icons/gi";
-import { FaRegUser } from "react-icons/fa6";
-import { ButtonUi, LogoUi, HeaderLinksUi, SearchUi } from "../ui";
+import { RxDashboard } from "react-icons/rx";
+import { ButtonUi, LogoUi, HeaderLinksUi } from "../ui";
 import { useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../state";
 
@@ -18,8 +17,7 @@ const Header = () => {
                     </div>
                     <HeaderLinksUi />
                     <div className="flex-center gap-4">
-                        <SearchUi />
-
+                        {/* <SearchUi />
                         <NavLink
                             to="/cart"
                             className={({ isActive }) =>
@@ -32,7 +30,7 @@ const Header = () => {
                             <span className="text-xs group-transition-all">
                                 10
                             </span>
-                        </NavLink>
+                        </NavLink> */}
                         {!isAuth ? (
                             <>
                                 <Link to="/auth/login">
@@ -44,7 +42,7 @@ const Header = () => {
                                         login
                                     </ButtonUi>
                                 </Link>
-                                <Link to="/auth/signup">
+                                <Link to="/auth/register/send-otp">
                                     <ButtonUi
                                         intent="secondary"
                                         size="xs"
@@ -56,7 +54,7 @@ const Header = () => {
                             </>
                         ) : (
                             <NavLink
-                                to="/user"
+                                to="/user/all"
                                 className={({ isActive }) =>
                                     `${
                                         isActive
@@ -65,7 +63,7 @@ const Header = () => {
                                     } group flex-center ring-1 p-1.5 rounded-[50%] transition-all hover:text-active hover:ring-active`
                                 }
                             >
-                                <FaRegUser className="text-[14px]" />
+                                <RxDashboard className="text-[14px]" />
                             </NavLink>
                         )}
                     </div>
