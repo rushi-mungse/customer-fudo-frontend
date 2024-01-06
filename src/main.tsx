@@ -15,6 +15,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 token: {
                     colorPrimary: "#f14646",
                 },
+                components: {
+                    Table: {
+                        headerBg: "#C0C0C0",
+                    },
+                },
             }}
         >
             <Provider store={store}>
