@@ -1,19 +1,18 @@
-import Header from "./header";
-import Footer from "./footer";
+import Header from "./Header";
+import Footer from "./Footer";
 import TextBorder from "./TextBorder";
 import OtpBox from "./OtpBox";
-import FeaturedProduct from "./featuredProduct";
-import Loader from "./loader";
+import FeaturedProduct from "./FeaturedProduct";
+import Loader from "./Loader";
 import UserProfile from "./UserProfile";
-import UserOrderHistory from "./UserOrderHistory";
-import Orders from "./orders";
 import ChangeEmailAndPhoneNumber from "./ChangeEmailAndPhoneNumber/ChangeEmailAndPhoneNumber";
-import UploadProfilePicture from "./UploadProfilePicture";
-import UpdateFullName from "./UpdateFullName";
-import ChangePassword from "./ChangePassword";
 import Review from "./Review";
 import WhatWeServe from "./WhatWeServe";
-import CreateProduct from "./CreateProduct";
+
+import LeftSider from "./Siders/LeftSider";
+import UserSider from "./Siders/UserSider";
+import ProductSider from "./Siders/ProductSider";
+import OrderSider from "./Siders/OrderSider";
 
 export {
     Header,
@@ -23,13 +22,11 @@ export {
     FeaturedProduct,
     Loader,
     UserProfile,
-    UserOrderHistory,
-    Orders,
     ChangeEmailAndPhoneNumber,
-    UploadProfilePicture,
-    UpdateFullName,
-    ChangePassword,
     Review,
     WhatWeServe,
-    CreateProduct,
+    LeftSider,
+    UserSider,
+    ProductSider,
+    OrderSider,
 };
