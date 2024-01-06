@@ -1,12 +1,10 @@
 import { Card } from "antd";
-import {
-    ChangeEmailAndPhoneNumber,
-    ChangePassword,
-    UpdateFullName,
-    UploadProfilePicture,
-} from "./";
-import { useAppSelector } from "../hooks/reduxHooks";
-import { RootState } from "../state";
+import ChangePassword from "./";
+import UpdateFullName from "./";
+import UploadProfilePicture from "./";
+import { ChangeEmailAndPhoneNumber } from "../";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { RootState } from "../../state";
 
 const User = () => {
     const user = useAppSelector((state: RootState) => state.authReducer.user);

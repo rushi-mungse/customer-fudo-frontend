@@ -58,3 +58,7 @@ export const sendOtpForSetNewPhoneNumber = (data: PhoneNumberDataType) =>
 export const verifyOtpForSetPhoneNumber = (
     data: PhoneNumberVerifyOtpDataType
 ) => api.post("/user/verify-otp-for-set-new-phone-number", data);
+
+export const getAllUser = () => api.get("/user");
+
+export const deleteUser = (userId: number) => api.delete(`/user/${userId}`);

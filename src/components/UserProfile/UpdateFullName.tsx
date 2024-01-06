@@ -3,11 +3,11 @@ import { Button, Form, Input, message } from "antd";
 import { useMutation } from "react-query";
 import { LuClipboardType } from "react-icons/lu";
 import { AxiosError } from "axios";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { RootState } from "../state";
-import { ErrorType } from "../types";
-import { updateFullName } from "../services/api";
-import { setAuth } from "../state/slices/auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { RootState } from "../../state";
+import { ErrorType } from "../../types";
+import { updateFullName } from "../../services/api";
+import { setAuth } from "../../state/slices/auth";
 
 interface FieldType {
     fullName?: string;

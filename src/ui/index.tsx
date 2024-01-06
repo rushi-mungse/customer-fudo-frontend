@@ -5,3 +5,4 @@ export { default as SearchUi } from "./SearchUi";
 export { default as ProductCardUi } from "./ProductCardUi";
 export { default as ServeUi } from "./ServeUi";
 export { default as InputUi } from "./InputUi";
+export { default as SelectWithTagUi } from "./SelectWithTagUi";

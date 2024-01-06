@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     HistoryOutlined,
     UserOutlined,
@@ -8,34 +8,26 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { useQuery } from "react-query";
-import { logout } from "../services/api";
-import { useAppDispatch } from "../hooks/reduxHooks";
-import { clearAuth } from "../state";
-import {
-    UserProfile,
-    Orders,
-    UserOrderHistory,
-    CreateProduct,
-} from "../components";
-
-const CONTENT: Record<number, JSX.Element> = {
-    1: <UserProfile />,
-    2: <Orders />,
-    3: <UserOrderHistory />,
-    4: <CreateProduct />,
-};
+import { logout } from "../../services/api";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { clearAuth } from "../../state";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const { Sider, Content } = Layout;
 
-const App: React.FC = () => {
-    const [content, setContent] = useState<JSX.Element>(CONTENT[1]);
+const DashBoard = ({ Outlet }: { Outlet: any }) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [curLink, setCurLink] = useState<string>(location.pathname);
+
+    useEffect(() => {
+        setCurLink(location.pathname);
+    }, [location]);
 
     const { refetch } = useQuery({
         queryFn: async () => await logout(),
-        onSuccess: async () => {
-            dispatch(clearAuth());
-        },
+        onSuccess: async () => dispatch(clearAuth()),
         enabled: false,
     });
 
@@ -44,10 +36,8 @@ const App: React.FC = () => {
     }
 
     const handleOnSelect = async (value: IValues) => {
-        if (value.key === "logout") {
-            return await refetch();
-        }
-        setContent(CONTENT[+value.key]);
+        if (value.key === "logout") return await refetch();
+        return navigate(value.key);
     };
 
     return (
@@ -56,28 +46,38 @@ const App: React.FC = () => {
                 <div className="flex items-center justify-between flex-col h-full w-full">
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={["1"]}
+                        defaultSelectedKeys={[curLink]}
                         style={{ border: "none" }}
                         items={[
                             {
-                                key: "1",
+                                key: "/dashboard/profile",
                                 icon: <UserOutlined />,
                                 label: "User Profile",
                             },
                             {
-                                key: "2",
+                                key: "/dashboard/orders",
                                 icon: <ShoppingCartOutlined />,
-                                label: "Orders",
+                                label: "User Orders",
                             },
                             {
-                                key: "3",
+                                key: "/dashboard/history",
                                 icon: <HistoryOutlined />,
                                 label: "Order History",
                             },
                             {
-                                key: "4",
+                                key: "/dashboard/add-products",
                                 icon: <FileAddOutlined />,
                                 label: "Add Product",
+                            },
+                            {
+                                key: "/dashboard/products",
+                                icon: <FileAddOutlined />,
+                                label: "All Product",
+                            },
+                            {
+                                key: "/dashboard/users",
+                                icon: <FileAddOutlined />,
+                                label: "All Users",
                             },
                         ]}
                         onSelect={(value) => handleOnSelect(value)}
@@ -103,11 +103,11 @@ const App: React.FC = () => {
                         minHeight: 280,
                     }}
                 >
-                    {content}
+                    {<Outlet />}
                 </Content>
             </Layout>
         </Layout>
     );
 };
 
-export default App;
+export default DashBoard;

@@ -1,15 +1,15 @@
 import { useMutation } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { MailOutlined, CheckSquareOutlined } from "@ant-design/icons";
-import { OtpBox } from "../../components";
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { RootState } from "../../state";
-import { setAuth } from "../../state";
-import { ButtonUi } from "../../ui";
-import { setPassword } from "../../services/api";
-import { ResetPasswordDataType } from "../../types";
+import { OtpBox } from "../../../components";
+import { useAppSelector, useAppDispatch } from "../../../hooks/reduxHooks";
+import { RootState } from "../../../state";
+import { setAuth } from "../../../state";
+import { ButtonUi } from "../../../ui";
+import { setPassword } from "../../../services/api";
+import { ResetPasswordDataType } from "../../../types";
 
 interface FieldType {
     password?: string;
@@ -34,14 +34,12 @@ const ResetPassword = () => {
 
     const otpInfo = useAppSelector((state: RootState) => state.otpReducer.otp);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const { mutate } = useMutation({
         mutationKey: ["resetPassword"],
         mutationFn: async (data: ResetPasswordDataType) => setPassword(data),
         onSuccess: async ({ data }) => {
             dispatch(setAuth(data));
-            navigate("/");
         },
     });
 
@@ -151,7 +149,7 @@ const ResetPassword = () => {
                     </p>
                     <Link
                         className="text-blue text-sm italic hover:text-blue-700"
-                        to="/send-otp-again"
+                        to="#"
                     >
                         Send Again
                     </Link>

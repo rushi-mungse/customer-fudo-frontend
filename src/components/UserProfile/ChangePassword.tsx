@@ -2,8 +2,8 @@ import { Button, Form, Input, message } from "antd";
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { ChangePasswordDataType, ErrorType } from "../types";
-import { changePassword } from "../services/api";
+import { ChangePasswordDataType, ErrorType } from "../../types";
+import { changePassword } from "../../services/api";
 
 interface ChangePasswordType {
     oldPassword?: string;

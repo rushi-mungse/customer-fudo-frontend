@@ -1,6 +1,5 @@
 import { RootState } from "../state";
 import { useAppSelector } from "../hooks/reduxHooks";
-import Layout from "../Layout";
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -9,45 +8,168 @@ import {
     Route,
 } from "react-router-dom";
 import {
-    ForgetPassword,
-    Home,
+    Footer,
+    Header,
+    LeftSider,
+    OrderSider,
+    ProductSider,
+    UserSider,
+} from "../components";
+import { Home, Menu, Stores, Contact } from "../pages";
+import { AddUser, AllUsers, ShowUser, EditUser } from "../pages/user";
+import {
+    AddProduct,
+    AllProducts,
+    EditProduct,
+    ShowProduct,
+} from "../pages/product";
+import {
     Login,
-    EmailVerification,
-    ResetPassword,
-    SendVerificationCode,
-    UserDashBoard,
-} from "../pages";
+    SendOtpForForgetPassword,
+    SendOtpForRegisterEmail,
+    VerifyOtpForForgetPassword,
+    VerifyOtpForRegisterEmail,
+} from "../pages/auth";
+import { AddOrder, AllOrders, EditOrder, ShowOrder } from "../pages/order";
+import { Layout } from "antd";
 
 const GuestRoute = () => {
-    const isAuth = useAppSelector(
-        (state: RootState) => state.authReducer.isAuth
+    return (
+        <main className="bg-bgColor">
+            <Header />
+            <Outlet />
+            <Footer />
+        </main>
     );
-    return isAuth ? <Navigate to="/" /> : <Outlet />;
 };
 
-const ProtectedRoute = () => {
+const AuthRoute = () => {
     const isAuth = useAppSelector(
         (state: RootState) => state.authReducer.isAuth
     );
-    return !isAuth ? <Navigate to="/" /> : <Outlet />;
+    if (isAuth) return <Navigate to="/" />;
+    return (
+        <main className="bg-bgColor">
+            <Header />
+            <Outlet />
+            <Footer />
+        </main>
+    );
+};
+
+const OrderRoute = () => {
+    const isAuth = useAppSelector(
+        (state: RootState) => state.authReducer.isAuth
+    );
+    return !isAuth ? (
+        <Navigate to="/" />
+    ) : (
+        <main className="bg-bgColor">
+            <Header />
+            <Layout className="min-h-screen pt-12 flex justify-between w-full">
+                <LeftSider pathname="order" />
+                <div className="w-full p-4">
+                    <Outlet />
+                </div>
+                <OrderSider />
+            </Layout>
+        </main>
+    );
+};
+
+const UserRoute = () => {
+    const isAuth = useAppSelector(
+        (state: RootState) => state.authReducer.isAuth
+    );
+    return !isAuth ? (
+        <Navigate to="/" />
+    ) : (
+        <main className="bg-bgColor">
+            <Header />
+            <Layout className="min-h-screen pt-12 flex justify-between w-full">
+                <LeftSider pathname="user" />
+                <div className="w-full p-4">
+                    <Outlet />
+                </div>
+                <UserSider />
+            </Layout>
+        </main>
+    );
+};
+
+const ProductRoute = () => {
+    const isAuth = useAppSelector(
+        (state: RootState) => state.authReducer.isAuth
+    );
+    return !isAuth ? (
+        <Navigate to="/" />
+    ) : (
+        <main className="bg-bgColor">
+            <Header />
+            <Layout className="min-h-screen pt-12 flex justify-between w-full">
+                <LeftSider pathname="product" />
+                <div className="w-full p-4">
+                    <Outlet />
+                </div>
+                <ProductSider />
+            </Layout>
+        </main>
+    );
 };
 
 const Router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
-            <Route index path="" element={<Home />} />
-            <Route path="auth" element={<GuestRoute />}>
-                <Route path="login" element={<Login />} />
-                <Route path="signup" element={<SendVerificationCode />} />
-                <Route
-                    path="otp-verification"
-                    element={<EmailVerification />}
-                />
-                <Route path="forget-password" element={<ForgetPassword />} />
-                <Route path="set-password" element={<ResetPassword />} />
+        <Route path="/">
+            <Route path="" element={<GuestRoute />}>
+                <Route index path="" element={<Home />} />
+                <Route index path="menu" element={<Menu />} />
+                <Route index path="stores" element={<Stores />} />
+                <Route index path="contact" element={<Contact />} />
             </Route>
-            <Route path="user" element={<ProtectedRoute />}>
-                <Route path="" element={<UserDashBoard />} />
+
+            <Route path="auth" element={<AuthRoute />}>
+                <Route path="login" element={<Login />} />
+                <Route path="register">
+                    <Route
+                        path="send-otp"
+                        element={<SendOtpForRegisterEmail />}
+                    />
+                    <Route
+                        path="verify-otp"
+                        element={<VerifyOtpForRegisterEmail />}
+                    />
+                </Route>
+                <Route path="forget-password">
+                    <Route
+                        path="send-otp"
+                        element={<SendOtpForForgetPassword />}
+                    />
+                    <Route
+                        path="verify-otp"
+                        element={<VerifyOtpForForgetPassword />}
+                    />
+                </Route>
+            </Route>
+
+            <Route path="user" element={<UserRoute />}>
+                <Route path="show/:userId" element={<ShowUser />} />
+                <Route path="edit/:userId" element={<EditUser />} />
+                <Route path="add" element={<AddUser />} />
+                <Route path="all" element={<AllUsers />} />
+            </Route>
+
+            <Route path="product" element={<ProductRoute />}>
+                <Route path="show/:productId" element={<ShowProduct />} />
+                <Route path="edit/:productId" element={<EditProduct />} />
+                <Route path="add" element={<AddProduct />} />
+                <Route path="all" element={<AllProducts />} />
+            </Route>
+
+            <Route path="order" element={<OrderRoute />}>
+                <Route path="show/:orderId" element={<ShowOrder />} />
+                <Route path="edit/:orderId" element={<EditOrder />} />
+                <Route path="add" element={<AddOrder />} />
+                <Route path="all" element={<AllOrders />} />
             </Route>
         </Route>
     )

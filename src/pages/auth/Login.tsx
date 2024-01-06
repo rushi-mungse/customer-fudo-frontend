@@ -132,7 +132,7 @@ const Login = () => {
                                             </Form.Item>
 
                                             <Link
-                                                to="/auth/forget-password"
+                                                to="/auth/forget-password/send-otp"
                                                 className="text-blue-400 hover:text-blue-500 italic inline-block text-center text-sm pb-4"
                                             >
                                                 Forgot password?
@@ -149,7 +149,7 @@ const Login = () => {
                                     </Form>
 
                                     <Link
-                                        to="/auth/signup"
+                                        to="/auth/register/send-otp"
                                         className="text-blue-400 hover:text-blue-500 italic mt-8 inline-block text-center w-full text-sm"
                                     >
                                         Don&apos;t have an account?

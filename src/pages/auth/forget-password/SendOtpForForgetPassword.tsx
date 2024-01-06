@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { Form, Input, message } from "antd";
 import { useMutation } from "react-query";
 import { MailOutlined } from "@ant-design/icons";
-import { ButtonUi } from "../../ui";
-import { forgetPassword } from "../../services/api";
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { setOtp } from "../../state";
+import { ButtonUi } from "../../../ui";
+import { forgetPassword } from "../../../services/api";
+import { useAppDispatch } from "../../../hooks/reduxHooks";
+import { setOtp } from "../../../state";
 import { AxiosError } from "axios";
-import { ErrorType } from "../../types";
+import { ErrorType } from "../../../types";
 
 const ForgetPassword = () => {
     const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const ForgetPassword = () => {
         mutationFn: async (data: { email: string }) => forgetPassword(data),
         onSuccess: async ({ data }) => {
             dispatch(setOtp({ ...data, fullName: null }));
-            navigate("/auth/set-password");
+            navigate("/auth/forget-password/verify-otp");
         },
         onError: async (err: AxiosError) => {
             const errors = err.response?.data as unknown as ErrorType;

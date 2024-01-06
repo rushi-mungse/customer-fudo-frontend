@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Spin, message } from "antd";
 import { useMutation } from "react-query";
 import { GoUnverified, GoVerified } from "react-icons/go";
-import { OtpBox } from "../../components";
-import { ButtonUi } from "../../ui";
-import { verifyOtpForRegisterEmail } from "../../services/api";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { RootState } from "../../state";
-import { EmailVerifyOtpDataType, ErrorType } from "../../types";
-import { setAuth } from "../../state/slices/auth";
+import { OtpBox } from "../../../components";
+import { ButtonUi } from "../../../ui";
+import { verifyOtpForRegisterEmail } from "../../../services/api";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import { RootState } from "../../../state";
+import { EmailVerifyOtpDataType, ErrorType } from "../../../types";
+import { setAuth } from "../../../state/slices/auth";
 import { AxiosError } from "axios";
 
 const OtpVerification = () => {
@@ -28,7 +27,6 @@ const OtpVerification = () => {
     const isAuth = useAppSelector(
         (state: RootState) => state.authReducer.isAuth
     );
-    const navigate = useNavigate();
 
     const { mutate, isLoading } = useMutation({
         mutationKey: ["verifyOtp"],
@@ -36,7 +34,6 @@ const OtpVerification = () => {
             verifyOtpForRegisterEmail(data),
         onSuccess: async ({ data }) => {
             dispatch(setAuth(data));
-            navigate("/");
             messageApi.open({
                 type: "success",
                 content: `Welcome ${data.fullName}, Your are registered successfully.`,

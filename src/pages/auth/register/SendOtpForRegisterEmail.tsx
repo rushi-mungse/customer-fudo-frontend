@@ -9,12 +9,12 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { ButtonUi } from "../../ui";
-import { TextBorder } from "../../components";
-import { sendOtpForVerifyEmail } from "../../services/api";
-import { ErrorType, RegisterSendOtpDataType } from "../../types";
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { setOtp } from "../../state";
+import { ButtonUi } from "../../../ui";
+import { TextBorder } from "../../../components";
+import { sendOtpForVerifyEmail } from "../../../services/api";
+import { ErrorType, RegisterSendOtpDataType } from "../../../types";
+import { useAppDispatch } from "../../../hooks/reduxHooks";
+import { setOtp } from "../../../state";
 
 type FieldType = {
     fullName?: string;
@@ -34,7 +34,7 @@ const SendVerificationCode = () => {
             sendOtpForVerifyEmail(data),
         onSuccess: async ({ data }) => {
             dispatch(setOtp(data));
-            navigate("/auth/otp-verification");
+            navigate("/auth/register/verify-otp");
         },
         onError: async (err: AxiosError) => {
             const errors = err.response?.data as unknown as ErrorType;

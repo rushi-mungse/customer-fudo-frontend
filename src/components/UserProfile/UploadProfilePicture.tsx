@@ -1,9 +1,9 @@
 import { Avatar, Button, Upload, message } from "antd";
 import { AntDesignOutlined, UploadOutlined } from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { setAuth } from "../state/slices/auth";
-import { RootState } from "../state";
-import { uploadUserProfilePicture } from "../services/api/client";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { setAuth } from "../../state/slices/auth";
+import { RootState } from "../../state";
+import { uploadUserProfilePicture } from "../../services/api/client";
 
 const UploadProfilePicture = () => {
     const user = useAppSelector((state: RootState) => state.authReducer.user);
