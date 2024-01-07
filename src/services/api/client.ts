@@ -81,4 +81,28 @@ export const addProduct = async (data: FormData) => {
     });
 };
 
+export const getProducts = async () => {
+    return await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_API_BASE_URL_5002}/product`,
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+    });
+};
+
+export const deleteProduct = async (productId: number) => {
+    return await axios({
+        method: "DELETE",
+        url: `${import.meta.env.VITE_API_BASE_URL_5002}/product/${productId}`,
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+    });
+};
+
 export default api;
