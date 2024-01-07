@@ -62,3 +62,9 @@ export const verifyOtpForSetPhoneNumber = (
 export const getAllUser = () => api.get("/user");
 
 export const deleteUser = (userId: number) => api.delete(`/user/${userId}`);
+
+export const sendOtpForUserRegister = (data: RegisterSendOtpDataType) =>
+    api.post("/user/register/send-otp", data);
+
+export const verifyOtpForUserRegister = (data: EmailVerifyOtpDataType) =>
+    api.post("/user/register/verify-otp", data);
