@@ -2,14 +2,12 @@ import {
     Button,
     Form,
     InputNumber,
-    Radio,
     Select,
     Switch,
     Upload,
     message,
-    RadioChangeEvent,
 } from "antd";
-import type { SizeType } from "antd/es/config-provider/SizeContext";
+
 import { UploadOutlined } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { AxiosError } from "axios";
@@ -31,7 +29,6 @@ const AddProduct = () => {
     const [image, setImage] = useState<RcFile | null>(null);
     const [form] = Form.useForm();
     const [availability, setAvailability] = useState<boolean>(true);
-    const [size, setSize] = useState<SizeType>("middle");
     const [messageApi, contextHolder] = message.useMessage();
     const [base64, setBase64] = useState<string | ArrayBuffer | null>(
         "/food.png"
@@ -60,10 +57,6 @@ const AddProduct = () => {
             });
         },
     });
-
-    const handleSizeChange = (e: RadioChangeEvent) => {
-        setSize(e.target.value);
-    };
 
     return (
         <div className="mt-4">
@@ -219,6 +212,7 @@ const AddProduct = () => {
                             ]}
                         >
                             <Select
+                                placeholder="Select price currency"
                                 options={[
                                     { value: "ind", label: "Ind" },
                                     { value: "us", label: "Dol" },
@@ -243,6 +237,7 @@ const AddProduct = () => {
                             ]}
                         >
                             <Select
+                                placeholder="Select product category"
                                 options={[
                                     { value: "pizza", label: "Pizza" },
                                     { value: "spicy", label: "Spicy" },
@@ -297,51 +292,10 @@ const AddProduct = () => {
                 </div>
 
                 <div className="flex flex-col">
-                    <div className="mb-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-3 rounded-md bg-pure">
-                        <span className="text-dark font-medium tracking-wide rounded-md mb-3 inline-block">
-                            🌶️ Spiciness
-                        </span>
-                        <Radio.Group
-                            value={size}
-                            onChange={handleSizeChange}
-                            size="small"
-                        >
-                            <Radio.Button value="less">Less</Radio.Button>
-                            <Radio.Button value="medium">Medium</Radio.Button>
-                            <Radio.Button value="hot">Hot</Radio.Button>
-                        </Radio.Group>
-                    </div>
-
                     <div className="mb-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-3 rounded-md bg-pure flex gap-4 flex-col">
                         <span className="text-dark font-medium tracking-wide rounded-md mb-3 inline-block">
                             🔥 Other Properties
                         </span>
-                        <div className="flex items-center justify-between">
-                            <span className="text-dark font-medium tracking-wide rounded-md mb-1 inline-block">
-                                Hit Product
-                            </span>
-                            <Switch
-                                size="small"
-                                defaultChecked={availability}
-                                onChange={(value) => {
-                                    setAvailability(value);
-                                }}
-                                className="ring-1 ring-active-300"
-                            />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-dark font-medium tracking-wide rounded-md mb-1 inline-block">
-                                Publish
-                            </span>
-                            <Switch
-                                size="small"
-                                defaultChecked={availability}
-                                onChange={(value) => {
-                                    setAvailability(value);
-                                }}
-                                className="ring-1 ring-active-300"
-                            />
-                        </div>
                         <div className="flex items-center justify-between">
                             <span className="text-dark font-medium tracking-wide rounded-md mb-1 inline-block">
                                 Availability
