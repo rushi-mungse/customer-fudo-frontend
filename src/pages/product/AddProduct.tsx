@@ -13,7 +13,6 @@ import type { SizeType } from "antd/es/config-provider/SizeContext";
 import { UploadOutlined } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { AxiosError } from "axios";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { InputUi, ButtonUi } from "../../ui";
 import { IoIosTime } from "react-icons/io";
@@ -49,7 +48,7 @@ const AddProduct = () => {
                 duration: 3,
             });
             setImage(null);
-            setBase64("./food.png");
+            setBase64("/food.png");
             form.resetFields();
         },
         onError: async (err: AxiosError) => {
@@ -67,17 +66,8 @@ const AddProduct = () => {
     };
 
     return (
-        <>
+        <div className="mt-4">
             {contextHolder}
-            <div className="text-sm font-light mb-4 italic bg-pure rounded-md p-3 flex justify-between items-center">
-                <span className="text-active"> 🔥 Add Product </span>
-                <Link to="/product/all">
-                    <span className="text-active hover:text-active/80 text-sm">
-                        See all Products ⭢
-                    </span>
-                </Link>
-            </div>
-
             <Form
                 form={form}
                 onFinish={(values: ProductDataType) => {
@@ -155,10 +145,7 @@ const AddProduct = () => {
                                 showUploadList={false}
                                 className="flex justify-end w-full"
                             >
-                                <Button
-                                    icon={<UploadOutlined />}
-                                    htmlType="submit"
-                                >
+                                <Button icon={<UploadOutlined />}>
                                     Upload Product Image
                                 </Button>
                             </Upload>
@@ -382,7 +369,7 @@ const AddProduct = () => {
                     </ButtonUi>
                 </div>
             </Form>
-        </>
+        </div>
     );
 };
 
