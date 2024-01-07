@@ -14,6 +14,9 @@ import UserSider from "./Siders/UserSider";
 import ProductSider from "./Siders/ProductSider";
 import OrderSider from "./Siders/OrderSider";
 
+import VerifyOtpStep from "./AddUser/VerifyOtpStep";
+import SendOtpStep from "./AddUser/SendOtpStep";
+
 export {
     Header,
     Footer,
@@ -29,4 +32,6 @@ export {
     UserSider,
     ProductSider,
     OrderSider,
+    VerifyOtpStep,
+    SendOtpStep,
 };
