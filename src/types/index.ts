@@ -3,6 +3,7 @@ export interface RegisterSendOtpDataType {
     email: string;
     password: string;
     confirmPassword: string;
+    role?: string;
 }
 
 export interface EmailVerifyOtpDataType {
@@ -10,6 +11,7 @@ export interface EmailVerifyOtpDataType {
     email: string;
     hashOtp: string;
     otp: string;
+    role?: string;
 }
 
 export interface OtpDataType {
@@ -18,6 +20,7 @@ export interface OtpDataType {
     hashOtp: string;
     phoneNumber: string;
     otp?: string;
+    role: string;
 }
 
 export interface UserDataType {
