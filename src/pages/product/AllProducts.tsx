@@ -52,7 +52,7 @@ const AllUsers: React.FC = () => {
         onSuccess: async ({ data }) => {
             messageApi.open({
                 type: "success",
-                content: `Product ${data.id} deleted successfully.`,
+                content: `Product ${data.productId} deleted successfully.`,
                 duration: 3,
             });
             refetch();
@@ -133,7 +133,7 @@ const AllUsers: React.FC = () => {
                 if (tag === "loser") color = "volcano";
                 return (
                     <Tag color={color} key={tag} className="rounded-full px-2">
-                        {tag?.toUpperCase()}
+                        {tag?.toLocaleLowerCase()}
                     </Tag>
                 );
             },
