@@ -1,26 +1,14 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import {
-    MdAddCircle,
-    MdOutlineSlideshow,
-    MdEdit,
-    MdListAlt,
-} from "react-icons/md";
-import { useEffect, useState } from "react";
+import { MdAddCircle, MdListAlt } from "react-icons/md";
+import { useState } from "react";
 const { Sider } = Layout;
 
 const ProductSider = () => {
     const location = useLocation();
     const [curLink, setCurLink] = useState(location.pathname);
-    const navigate = useNavigate();
-    const { productId } = useParams();
-
-    useEffect(() => setCurLink(location.pathname), [location]);
-
-    const handleOnSelect = async (value: { key: string }) => {
+    const handleOnSelect = async (value: { key: string }) =>
         setCurLink(value.key);
-        navigate(value.key);
-    };
 
     return (
         <Sider trigger={null} theme="light">
@@ -32,22 +20,12 @@ const ProductSider = () => {
                     {
                         key: "/product/all",
                         icon: <MdListAlt />,
-                        label: "All Product",
+                        label: <Link to="/product/all">All Product</Link>,
                     },
                     {
                         key: "/product/add",
                         icon: <MdAddCircle />,
-                        label: "Add Product",
-                    },
-                    {
-                        key: `/product/edit/${productId}`,
-                        icon: <MdEdit />,
-                        label: "Edit Product",
-                    },
-                    {
-                        key: `/product/show/${productId}`,
-                        icon: <MdOutlineSlideshow />,
-                        label: "Show Product",
+                        label: <Link to="/product/add">Add Product</Link>,
                     },
                 ]}
                 onSelect={(value) => handleOnSelect(value)}
