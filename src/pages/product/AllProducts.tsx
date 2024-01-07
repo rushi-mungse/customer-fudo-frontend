@@ -1,144 +1,180 @@
-import { Space, Table, Tag } from "antd";
+import { Avatar, Space, Table, Tag, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useMutation, useQuery } from "react-query";
+import { deleteProduct, getProducts } from "../../services/api/client";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
     DeleteOutlined,
     EditOutlined,
     SearchOutlined,
+    UserOutlined,
 } from "@ant-design/icons";
+import { AxiosError } from "axios";
+import { ErrorType } from "../../types";
 
 interface DataType {
+    id: number;
     key: string;
     name: string;
     price: number;
     description: string;
     category: string;
-    image: string;
+    imageUrl: string;
     availability: boolean;
     size: string;
 }
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: "image",
-        dataIndex: "image",
-        key: "image",
-        render: (text) => <img src={text} alt="food-image" className="h-20" />,
-    },
-    {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: "Size",
-        dataIndex: "size",
-        key: "size",
-    },
-    {
-        title: "Price",
-        dataIndex: "price",
-        key: "price",
-    },
-    {
-        title: "Availability",
-        dataIndex: "availability",
-        key: "availability",
-        render: (avail) => {
-            const color = avail ? "green" : "volcano";
-            return (
-                <Tag color={color} key="avail" className="rounded-full px-2">
-                    {avail ? "Available" : "Unavailable"}
-                </Tag>
-            );
-        },
-    },
-    {
-        title: "Description",
-        dataIndex: "description",
-        key: "description",
-    },
-    {
-        title: "Category",
-        key: "category",
-        dataIndex: "category",
-        render: (tag: string) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") color = "volcano";
-            return (
-                <Tag color={color} key={tag} className="rounded-full px-2">
-                    {tag.toUpperCase()}
-                </Tag>
-            );
-        },
-    },
-    {
-        title: "Action",
-        key: "action",
-        render: (_, recoder) => {
-            return (
-                <Space size="middle">
-                    <button
-                        onClick={() => console.log(recoder)}
-                        className="text-success-800 rounded-md h-6 w-6 bg-pure-100/50 hover:bg-pure-100 transition-all "
-                    >
-                        <EditOutlined />
-                    </button>
-                    <button
-                        onClick={() => console.log(recoder)}
-                        className="text-danger-800 rounded-md h-6 w-6 bg-pure-100/50 hover:bg-pure-100 transition-all "
-                    >
-                        <DeleteOutlined />
-                    </button>
-                </Space>
-            );
-        },
-    },
-];
+const AllUsers: React.FC = () => {
+    const [userData, setUserData] = useState<DataType[]>([]);
+    const [messageApi, contextHolder] = message.useMessage();
+    const navigate = useNavigate();
 
-const data: DataType[] = [
-    {
-        key: "1",
-        name: "John Brown",
-        price: 32,
-        description: "New York No. 1 Lake Park",
-        category: "pizza",
-        image: "/food.png",
-        availability: true,
-        size: "Small",
-    },
-    {
-        key: "2",
-        name: "Jim Green",
-        price: 42,
-        description: "London No. 1 Lake Park",
-        category: "loser",
-        image: "/food.png",
-        availability: false,
-        size: "Large",
-    },
-    {
-        key: "3",
-        name: "Joe Black",
-        price: 32,
-        description: "Sydney No. 1 Lake Park",
-        category: "cool",
-        image: "/food.png",
-        availability: true,
-        size: "Medium",
-    },
-];
+    const { refetch, isLoading } = useQuery({
+        queryKey: ["AllProduct"],
+        queryFn: async () => getProducts(),
+        onSuccess: async ({ data }: { data: { products: DataType[] } }) =>
+            setUserData(data.products),
+        onError: async (err: AxiosError) => {
+            const error = err.response?.data as ErrorType;
+            messageApi.open({
+                type: "error",
+                content: error?.error[0].msg,
+                duration: 3,
+            });
+        },
+    });
 
-const AllProducts: React.FC = () => {
+    const { mutate } = useMutation({
+        mutationKey: ["DeleteProduct"],
+        mutationFn: async ({ productId }: { productId: number }) =>
+            deleteProduct(productId),
+        onSuccess: async ({ data }) => {
+            messageApi.open({
+                type: "success",
+                content: `Product ${data.id} deleted successfully.`,
+                duration: 3,
+            });
+            refetch();
+        },
+        onError: async (err: AxiosError) => {
+            const error = err.response?.data as ErrorType;
+            messageApi.open({
+                type: "error",
+                content: error?.error[0].msg,
+                duration: 3,
+            });
+        },
+    });
+
+    const columns: ColumnsType<DataType> = [
+        {
+            title: "Image",
+            dataIndex: "imageUrl",
+            key: "imageUrl",
+            render: (text) => {
+                console.log(text);
+                return (
+                    <Avatar
+                        src={text}
+                        alt="food-image"
+                        size={"large"}
+                        icon={<UserOutlined />}
+                    />
+                );
+            },
+        },
+        {
+            title: "Name",
+            dataIndex: "name",
+            key: "name",
+            render: (text, recorder) => (
+                <Link to={`/product/show/${recorder.id}`}>{text}</Link>
+            ),
+        },
+        {
+            title: "Size",
+            dataIndex: "size",
+            key: "size",
+        },
+        {
+            title: "Price",
+            dataIndex: "price",
+            key: "price",
+        },
+        {
+            title: "Availability",
+            dataIndex: "availability",
+            key: "availability",
+            render: (avail) => {
+                const color = avail ? "green" : "volcano";
+                return (
+                    <Tag
+                        color={color}
+                        key="avail"
+                        className="rounded-full px-2"
+                    >
+                        {avail ? "Available" : "Unavailable"}
+                    </Tag>
+                );
+            },
+        },
+        {
+            title: "Description",
+            dataIndex: "description",
+            key: "description",
+        },
+        {
+            title: "Category",
+            key: "category",
+            dataIndex: "category",
+            render: (tag: string) => {
+                let color = tag?.length > 5 ? "geekblue" : "green";
+                if (tag === "loser") color = "volcano";
+                return (
+                    <Tag color={color} key={tag} className="rounded-full px-2">
+                        {tag?.toUpperCase()}
+                    </Tag>
+                );
+            },
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: (_, recoder) => {
+                return (
+                    <Space size="middle">
+                        <button
+                            onClick={() =>
+                                navigate(`/product/edit/${recoder.id}`)
+                            }
+                            className="text-success-800 rounded-md h-6 w-6 bg-pure-100/50 hover:bg-pure-100 transition-all "
+                        >
+                            <EditOutlined />
+                        </button>
+                        <button
+                            onClick={() => mutate({ productId: recoder.id })}
+                            className="text-danger-800 rounded-md h-6 w-6 bg-pure-100/50 hover:bg-pure-100 transition-all "
+                        >
+                            <DeleteOutlined />
+                        </button>
+                    </Space>
+                );
+            },
+        },
+    ];
+
     return (
-        <div>
+        <>
+            {contextHolder}
             <div className="mb-4 flex items-center justify-between shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md p-4 bg-pure">
-                <span className="text-active font-bold">All Products</span>
-                <div className="ring-1 ring-pure-600/60 w-[300px] rounded-md px-3 flex items-center justify-between py-1">
+                <span className="text-active font-bold">All Users</span>
+
+                <div className="ring-1 ring-pure-600/60 w-[300px] rounded-full px-4 flex items-center justify-between py-1">
                     <input
                         type="text"
-                        placeholder="Search Product"
-                        className="w-full outline-none text-sm"
+                        placeholder="Search Users"
+                        className="w-full outline-none text-sm tracking-wide font-light"
                     />
                     <SearchOutlined />
                 </div>
@@ -146,11 +182,13 @@ const AllProducts: React.FC = () => {
             <Table
                 columns={columns}
                 bordered
-                pagination={{ position: ["bottomRight"] }}
-                dataSource={data}
+                pagination={{ position: ["bottomRight"], defaultPageSize: 7 }}
+                dataSource={userData}
+                loading={isLoading}
+                rowKey="id"
             />
-        </div>
+        </>
     );
 };
 
-export default AllProducts;
+export default AllUsers;
