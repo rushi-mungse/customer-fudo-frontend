@@ -2,27 +2,10 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../../services/api/product";
 import { AxiosError } from "axios";
-import { ErrorType } from "../../types";
+import { ErrorType, ProductDataType } from "../../types";
 import { Image, Rate, Tag, message } from "antd";
 import { Loader, ProductTable } from "../../components";
 import { ButtonUi } from "../../ui";
-
-interface ProductDataType {
-    availability: boolean;
-    category: string;
-    createdAt: Date;
-    currency: string;
-    description: string;
-    discount: number;
-    id: number;
-    imageUrl: string;
-    ingredients: string;
-    name: string;
-    preparationTimeInMinute: number;
-    price: number;
-    size: string;
-    updatedAt: Date;
-}
 
 const ShowProduct = () => {
     const { productId } = useParams();
@@ -44,17 +27,17 @@ const ShowProduct = () => {
     if (data) {
         const product = data?.data.product as ProductDataType;
         return (
-            <>
+            <div className="mt-10">
                 {contextHolder}
                 <div>
                     <ProductTable productData={[product]} />
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-20">
                     <div className="grid grid-cols-2 bg-active-500 rounded-lg shadow-lg shadow-gray-500">
                         <div className="flex justify-center flex-col col-span-1 bg-pure rounded-lg">
                             <div className="flex-center flex-col p-5">
-                                <div className="w-[350px] flex justify-center flex-col">
+                                <div className="w-[300px] flex justify-center flex-col">
                                     <div className="flex justify-between items-center">
                                         <div className="flex">
                                             <div className="flex flex-col">
@@ -66,9 +49,7 @@ const ShowProduct = () => {
                                                     className="text-xs"
                                                 />
                                             </div>
-                                            <h1 className="text-active font-bold px-1">
-                                                Product Info
-                                            </h1>{" "}
+
                                             <div>
                                                 <Tag
                                                     color="success"
@@ -112,7 +93,7 @@ const ShowProduct = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between mt-8 bg-neutral-400 h-full rounded-lg px-10">
+                            <div className="flex items-center justify-between mt-8 border-t border-pure-600/60 h-full rounded-lg px-20">
                                 <span className="px-4 py-2 bg-orange-300 rounded-full text-dark">
                                     $ {product.price}
                                 </span>
@@ -134,7 +115,7 @@ const ShowProduct = () => {
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 
