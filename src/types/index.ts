@@ -85,3 +85,14 @@ export interface ProductDataType {
     category: string;
     ingredients: string;
 }
+
+export interface ProductDataType {
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+    category: string;
+    imageUrl: string;
+    availability: boolean;
+    size: string;
+}
