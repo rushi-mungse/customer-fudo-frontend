@@ -21,6 +21,20 @@ export const addProduct = async (data: FormData) => {
     });
 };
 
+export const updateProduct = async (data: FormData, productId: number) => {
+    return await axios({
+        method: "POST",
+        url: `${
+            import.meta.env.VITE_API_BASE_URL_5002
+        }/product/update/${productId}`,
+        data,
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
 export const getProducts = async () => api.get("/product");
 export const deleteProduct = async (productId: number) =>
     api.delete(`/product/${productId}`);
