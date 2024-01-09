@@ -22,7 +22,7 @@ import {
     MdDriveFileRenameOutline,
 } from "react-icons/md";
 import { ErrorType, ProductDataType } from "../../types";
-import { addProduct } from "../../services/api/client";
+import { addProduct } from "../../services/api/product";
 import { RcFile } from "antd/es/upload";
 
 const AddProduct = () => {

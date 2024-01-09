@@ -1,7 +1,7 @@
 import { Avatar, Space, Table, Tag, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useMutation, useQuery } from "react-query";
-import { deleteProduct, getProducts } from "../../services/api/client";
+import { deleteProduct, getProducts } from "../../services/api/product";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -11,30 +11,21 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import { AxiosError } from "axios";
-import { ErrorType } from "../../types";
-
-interface DataType {
-    id: number;
-    key: string;
-    name: string;
-    price: number;
-    description: string;
-    category: string;
-    imageUrl: string;
-    availability: boolean;
-    size: string;
-}
+import { ErrorType, ProductDataType } from "../../types";
 
 const AllUsers: React.FC = () => {
-    const [userData, setUserData] = useState<DataType[]>([]);
+    const [userData, setUserData] = useState<ProductDataType[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate();
 
     const { refetch, isLoading } = useQuery({
         queryKey: ["AllProduct"],
         queryFn: async () => getProducts(),
-        onSuccess: async ({ data }: { data: { products: DataType[] } }) =>
-            setUserData(data.products),
+        onSuccess: async ({
+            data,
+        }: {
+            data: { products: ProductDataType[] };
+        }) => setUserData(data.products),
         onError: async (err: AxiosError) => {
             const error = err.response?.data as ErrorType;
             messageApi.open({
@@ -67,13 +58,12 @@ const AllUsers: React.FC = () => {
         },
     });
 
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<ProductDataType> = [
         {
             title: "Image",
             dataIndex: "imageUrl",
             key: "imageUrl",
             render: (text) => {
-                console.log(text);
                 return (
                     <Avatar
                         src={text}
