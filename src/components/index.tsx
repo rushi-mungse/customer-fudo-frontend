@@ -8,6 +8,7 @@ import UserProfile from "./UserProfile";
 import ChangeEmailAndPhoneNumber from "./ChangeEmailAndPhoneNumber/ChangeEmailAndPhoneNumber";
 import Review from "./Review";
 import WhatWeServe from "./WhatWeServe";
+import ProductTable from "./ProductTable";
 
 import LeftSider from "./Siders/LeftSider";
 import UserSider from "./Siders/UserSider";
@@ -34,4 +35,5 @@ export {
     OrderSider,
     VerifyOtpStep,
     SendOtpStep,
+    ProductTable,
 };
